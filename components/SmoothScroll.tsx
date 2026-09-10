@@ -1,11 +1,11 @@
 "use client";
 
-import { ReactLenis } from "lenis/react";
+import Lenis from "lenis/react";
 import { type ReactNode } from "react";
 
 export function SmoothScroll({ children }: { children: ReactNode }) {
   return (
-    <ReactLenis
+    <Lenis
       root
       options={{
         lerp: 0.1,
@@ -14,6 +14,6 @@ export function SmoothScroll({ children }: { children: ReactNode }) {
       }}
     >
       {children}
-    </ReactLenis>
+    </Lenis>
   );
 }
