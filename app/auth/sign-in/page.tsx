@@ -1,7 +1,5 @@
 'use client';
 
-import { useActionState } from 'react';
-import { checkSignInBeforeSubmit } from './actions';
 import { useState } from 'react';
 import { Eye, EyeOff } from 'lucide-react';
 import { Button } from '@/components/base-ui/button';
@@ -10,7 +8,6 @@ import { Label } from '@/components/base-ui/label';
 import AuthLayout from '@/components/AuthLayout';
 
 export default function SignInForm() {
-  const [rateLimitState, rateLimitAction, isPending] = useActionState(checkSignInBeforeSubmit, null);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
@@ -23,16 +20,6 @@ export default function SignInForm() {
     setLoading(true);
 
     try {
-      const formData = new FormData();
-      formData.append('email', email);
-      const rateLimitResult = await checkSignInBeforeSubmit(null, formData);
-
-      if (rateLimitResult && rateLimitResult.error) {
-        setError(rateLimitResult.error);
-        setLoading(false);
-        return;
-      }
-
       const res = await fetch('/api/auth/sign-in/email', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -44,7 +31,6 @@ export default function SignInForm() {
       try {
         data = await res.json();
       } catch {
-        console.error('[SignIn] Non-JSON response:', res.status);
         setError('Authentication service unavailable. Please try again later.');
         setLoading(false);
         return;
@@ -52,15 +38,11 @@ export default function SignInForm() {
 
       if (!res.ok || data.error) {
         console.error('[SignIn] API error:', res.status, data);
-        const { recordSignInFailure } = await import('./actions');
-        await recordSignInFailure(email);
         setError('Invalid email or password');
         setLoading(false);
         return;
       }
 
-      const { clearSignInAttempts } = await import('./actions');
-      await clearSignInAttempts(email);
       window.location.href = '/';
     } catch (err) {
       console.error('[SignIn] Exception:', err);
@@ -129,7 +111,7 @@ export default function SignInForm() {
 
         <Button
           type="submit"
-          disabled={loading || isPending}
+          disabled={loading}
           className="h-11 w-full text-base font-semibold"
         >
           {loading ? 'Signing in...' : 'Sign In'}
