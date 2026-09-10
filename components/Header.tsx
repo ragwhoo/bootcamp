@@ -24,6 +24,8 @@ export function Header() {
         <nav className="hidden items-center gap-6 sm:flex">
           <Link href="/" className="text-sm font-medium text-gray-400 transition-colors hover:text-white">Home</Link>
           <Link href="/learning-outcome/1" className="text-sm font-medium text-gray-400 transition-colors hover:text-white">Modules</Link>
+          <Link href="/glossary" className="text-sm font-medium text-gray-400 transition-colors hover:text-white">Glossary</Link>
+          <Link href="/ports" className="text-sm font-medium text-gray-400 transition-colors hover:text-white">Ports</Link>
           <form onSubmit={handleSearch} className="relative">
             <input
               type="text"
@@ -59,6 +61,8 @@ export function MobileNavigation() {
           <nav className="flex flex-col p-2">
             <Link href="/" onClick={() => setOpen(false)} className="rounded px-3 py-3 text-sm text-gray-300 hover:bg-white/10">Home</Link>
             <Link href="/learning-outcome/1" onClick={() => setOpen(false)} className="rounded px-3 py-3 text-sm text-gray-300 hover:bg-white/10">Modules</Link>
+            <Link href="/glossary" onClick={() => setOpen(false)} className="rounded px-3 py-3 text-sm text-gray-300 hover:bg-white/10">Glossary</Link>
+            <Link href="/ports" onClick={() => setOpen(false)} className="rounded px-3 py-3 text-sm text-gray-300 hover:bg-white/10">Ports</Link>
             <Link href="/search" onClick={() => setOpen(false)} className="rounded px-3 py-3 text-sm text-gray-300 hover:bg-white/10">Search</Link>
           </nav>
         </div>
