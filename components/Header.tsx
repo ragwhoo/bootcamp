@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { AuthStatus } from "./AuthStatus";
 
 export function Header() {
   const [query, setQuery] = useState("");
@@ -37,7 +38,7 @@ export function Header() {
           </form>
         </nav>
         <div className="flex items-center gap-4">
-          <span className="hidden text-sm text-gray-500 sm:inline">Team</span>
+          <AuthStatus />
           <MobileNavigation />
         </div>
       </div>
@@ -64,6 +65,7 @@ export function MobileNavigation() {
             <Link href="/glossary" onClick={() => setOpen(false)} className="rounded px-3 py-3 text-sm text-gray-300 hover:bg-white/10">Glossary</Link>
             <Link href="/ports" onClick={() => setOpen(false)} className="rounded px-3 py-3 text-sm text-gray-300 hover:bg-white/10">Ports</Link>
             <Link href="/search" onClick={() => setOpen(false)} className="rounded px-3 py-3 text-sm text-gray-300 hover:bg-white/10">Search</Link>
+            <Link href="/auth/sign-in" onClick={() => setOpen(false)} className="rounded px-3 py-3 text-sm text-gray-300 hover:bg-white/10">Sign In</Link>
           </nav>
         </div>
       )}

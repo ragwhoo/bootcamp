@@ -2,10 +2,25 @@ import { DayCard } from "@/components/DayCard";
 import Hero from "@/components/Hero";
 import { days } from "@/content/days";
 import { BookOpen, Plug } from "lucide-react";
+import { auth } from "@/lib/auth/server";
 
-export default function Home() {
+export const dynamic = 'force-dynamic';
+
+export default async function Home() {
+  const { data: session } = await auth.getSession();
+
   return (
     <div>
+      {session?.user && (
+        <div className="bg-[#2563eb]/10 border-b border-[#2563eb]/20">
+          <div className="mx-auto max-w-[1600px] px-5 py-3 sm:px-8">
+            <p className="text-sm text-[#60a5fa]">
+              Welcome back, <span className="font-medium text-white">{session.user.name || session.user.email}</span>
+            </p>
+          </div>
+        </div>
+      )}
+
       <Hero />
 
       <section id="bootcamp-by-day">
