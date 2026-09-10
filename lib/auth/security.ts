@@ -1,6 +1,10 @@
 import { neon } from '@neondatabase/serverless';
 
-const sql = neon(process.env.DATABASE_URL!);
+function getSql() {
+  const url = process.env.DATABASE_URL;
+  if (!url) return null;
+  return neon(url);
+}
 
 const MAX_ATTEMPTS = 5;
 const LOCKOUT_SECONDS = 15 * 60; // 15 minutes
@@ -8,6 +12,8 @@ const RATE_WINDOW_SECONDS = 60; // 1 minute
 const MAX_RATE = 10; // max requests per window
 
 export async function checkRateLimit(key: string): Promise<{ allowed: boolean; retryAfter?: number }> {
+  const sql = getSql();
+  if (!sql) return { allowed: true };
   const now = new Date();
 
   const [existing] = await sql`
@@ -37,6 +43,8 @@ export async function checkRateLimit(key: string): Promise<{ allowed: boolean; r
 }
 
 export async function checkAccountLockout(identifier: string): Promise<{ locked: boolean; retryAfter?: number }> {
+  const sql = getSql();
+  if (!sql) return { locked: false };
   const key = `lockout:${identifier}`;
   const now = new Date();
 
@@ -55,6 +63,8 @@ export async function checkAccountLockout(identifier: string): Promise<{ locked:
 }
 
 export async function recordFailedAttempt(identifier: string): Promise<{ locked: boolean; retryAfter?: number }> {
+  const sql = getSql();
+  if (!sql) return { locked: false };
   const key = `lockout:${identifier}`;
   const now = new Date();
 
@@ -90,11 +100,15 @@ export async function recordFailedAttempt(identifier: string): Promise<{ locked:
 }
 
 export async function clearFailedAttempts(identifier: string): Promise<void> {
+  const sql = getSql();
+  if (!sql) return;
   const key = `lockout:${identifier}`;
   await sql`DELETE FROM rate_limit WHERE key = ${key}`;
 }
 
 export async function cleanupExpiredEntries(): Promise<void> {
+  const sql = getSql();
+  if (!sql) return;
   await sql`DELETE FROM rate_limit WHERE reset_at < NOW()`;
 }
 

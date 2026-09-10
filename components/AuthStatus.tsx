@@ -10,12 +10,16 @@ export function AuthStatus() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    authClient.getSession().then((result) => {
-      if (result.data?.user) {
-        setUser(result.data.user);
-      }
-      setLoading(false);
-    });
+    authClient.getSession()
+      .then((result) => {
+        if (result.data?.user) {
+          setUser(result.data.user);
+        }
+      })
+      .catch(() => {})
+      .finally(() => {
+        setLoading(false);
+      });
   }, []);
 
   const handleSignOut = async () => {

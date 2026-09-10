@@ -7,15 +7,19 @@ import {
   clearFailedAttempts,
 } from '@/lib/auth/security';
 
-export async function checkSignInAllowed(
-  _prevState: { error: string; allowed?: boolean } | null,
-  formData: FormData
-) {
-  const email = formData.get('email') as string;
-  const password = formData.get('password') as string;
+export interface SignInResult {
+  error?: string;
+  success?: boolean;
+}
 
-  if (!email || !password) {
-    return { error: 'Email and password are required' };
+export async function checkSignInBeforeSubmit(
+  _prevState: SignInResult | null,
+  formData: FormData
+): Promise<SignInResult> {
+  const email = formData.get('email') as string;
+
+  if (!email) {
+    return { error: 'Email is required' };
   }
 
   const rateKey = `signin:${email}`;
@@ -29,7 +33,7 @@ export async function checkSignInAllowed(
     return { error: `Account locked. Try again in ${lockout.retryAfter}s` };
   }
 
-  return { error: '', allowed: true };
+  return { success: true };
 }
 
 export async function recordSignInFailure(email: string) {

@@ -1,9 +1,8 @@
 import { auth } from '@/lib/auth/server';
 import { NextRequest } from 'next/server';
 
-const authInstance = auth();
-
 function middleware(request: NextRequest) {
+  const authInstance = auth();
   if (!authInstance) {
     return new Response(null, { status: 200 });
   }

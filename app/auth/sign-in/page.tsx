@@ -1,9 +1,8 @@
 'use client';
 
 import { useActionState } from 'react';
-import { checkSignInAllowed, recordSignInFailure, clearSignInAttempts } from './actions';
+import { checkSignInBeforeSubmit } from './actions';
 import { useState } from 'react';
-import { authClient } from '@/lib/auth/client';
 import { Eye, EyeOff } from 'lucide-react';
 import { Button } from '@/components/base-ui/button';
 import { Input } from '@/components/base-ui/input';
@@ -11,7 +10,7 @@ import { Label } from '@/components/base-ui/label';
 import AuthLayout from '@/components/AuthLayout';
 
 export default function SignInForm() {
-  const [state, formAction, isPending] = useActionState(checkSignInAllowed, null);
+  const [rateLimitState, rateLimitAction, isPending] = useActionState(checkSignInBeforeSubmit, null);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
@@ -23,28 +22,48 @@ export default function SignInForm() {
     setError('');
     setLoading(true);
 
-    if (state && !state.allowed) {
-      setError(state.error);
-      setLoading(false);
-      return;
-    }
-
     try {
-      const { error: signInError } = await authClient.signIn.email({
-        email,
-        password,
+      const formData = new FormData();
+      formData.append('email', email);
+      const rateLimitResult = await checkSignInBeforeSubmit(null, formData);
+
+      if (rateLimitResult && rateLimitResult.error) {
+        setError(rateLimitResult.error);
+        setLoading(false);
+        return;
+      }
+
+      const res = await fetch('/api/auth/sign-in/email', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password }),
+        credentials: 'include',
       });
 
-      if (signInError) {
+      let data: Record<string, unknown> = {};
+      try {
+        data = await res.json();
+      } catch {
+        console.error('[SignIn] Non-JSON response:', res.status);
+        setError('Authentication service unavailable. Please try again later.');
+        setLoading(false);
+        return;
+      }
+
+      if (!res.ok || data.error) {
+        console.error('[SignIn] API error:', res.status, data);
+        const { recordSignInFailure } = await import('./actions');
         await recordSignInFailure(email);
         setError('Invalid email or password');
         setLoading(false);
         return;
       }
 
+      const { clearSignInAttempts } = await import('./actions');
       await clearSignInAttempts(email);
       window.location.href = '/';
-    } catch {
+    } catch (err) {
+      console.error('[SignIn] Exception:', err);
       setError('Something went wrong. Please try again.');
       setLoading(false);
     }
@@ -101,6 +120,12 @@ export default function SignInForm() {
             </button>
           </div>
         </div>
+
+        {error && (
+          <div className="rounded-lg border border-red-500/20 bg-red-500/10 px-4 py-3 text-sm text-red-400">
+            {error}
+          </div>
+        )}
 
         <Button
           type="submit"
