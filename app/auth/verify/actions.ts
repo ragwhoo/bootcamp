@@ -14,7 +14,12 @@ export async function verifyEmail(
     return { error: 'Email and verification code are required' };
   }
 
-  const { error } = await auth().emailOtp.verifyEmail({
+  const authInstance = auth();
+  if (!authInstance) {
+    return { error: 'Auth service unavailable' };
+  }
+
+  const { error } = await authInstance.emailOtp.verifyEmail({
     email,
     otp,
   });

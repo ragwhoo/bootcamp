@@ -10,8 +10,11 @@ export const dynamic = 'force-dynamic';
 export default async function Home() {
   let session = null;
   try {
-    const result = await auth().getSession();
-    session = result.data;
+    const authInstance = auth();
+    if (authInstance) {
+      const result = await authInstance.getSession();
+      session = result.data;
+    }
   } catch {
     // Auth service unavailable — render without session
   }

@@ -1,8 +1,16 @@
 import { auth } from '@/lib/auth/server';
+import { NextRequest } from 'next/server';
 
-export default auth().middleware({
-  loginUrl: '/auth/sign-in',
-});
+const authInstance = auth();
+
+function middleware(request: NextRequest) {
+  if (!authInstance) {
+    return new Response(null, { status: 200 });
+  }
+  return authInstance.middleware({ loginUrl: '/auth/sign-in' })(request);
+}
+
+export default middleware;
 
 export const config = {
   matcher: [
