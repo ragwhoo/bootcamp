@@ -58,13 +58,13 @@ export const learningOutcome2 = {
           content: {
             intro: "Copying an existing user account creates a new account with similar properties, useful when creating accounts with standardized permissions.",
             steps: [
-              "Open Active Directory Users and Computers",
-              "Locate the existing user account",
-              "Right-click the account and select Copy",
-              "Enter the new username",
-              "Review and modify group memberships",
-              "Adjust permissions as needed",
-              "Complete the copy process"
+              { title: "Open Active Directory Users and Computers", details: "Launch ADUC from Server Manager → Tools, or type dsa.msc in Run." },
+              { title: "Locate the existing account", details: "Find the user account you want to use as a template. This account should have the group memberships and permissions you want to copy." },
+              { title: "Right-click and select Copy", details: "Right-click the account and choose Copy. This opens the Copy Object wizard." },
+              { title: "Enter new username", details: "Enter the new user's first name, last name, and logon name. The full name is automatically constructed." },
+              { title: "Set password", details: "Enter and confirm the new account's password. Set password options (must change at next logon, password never expires)." },
+              { title: "Review group memberships", details: "The copied account inherits group memberships from the template. Verify these are correct and modify if needed." },
+              { title: "Adjust permissions", details: "Check if any specific permissions need to be added or removed for the new user. Group memberships carry over but individual permissions may not." },
             ],
             fields: [
               { name: "Username", description: "The new account's username." },
