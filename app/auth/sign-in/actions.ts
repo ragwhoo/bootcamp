@@ -4,6 +4,7 @@ import {
   checkRateLimit,
   checkAccountLockout,
   recordFailedAttempt,
+  clearFailedAttempts,
 } from '@/lib/auth/security';
 
 export async function checkSignInAllowed(
@@ -18,12 +19,12 @@ export async function checkSignInAllowed(
   }
 
   const rateKey = `signin:${email}`;
-  const rateCheck = checkRateLimit(rateKey);
+  const rateCheck = await checkRateLimit(rateKey);
   if (!rateCheck.allowed) {
     return { error: `Too many attempts. Try again in ${rateCheck.retryAfter}s` };
   }
 
-  const lockout = checkAccountLockout(email);
+  const lockout = await checkAccountLockout(email);
   if (lockout.locked) {
     return { error: `Account locked. Try again in ${lockout.retryAfter}s` };
   }
@@ -32,10 +33,9 @@ export async function checkSignInAllowed(
 }
 
 export async function recordSignInFailure(email: string) {
-  recordFailedAttempt(email);
+  await recordFailedAttempt(email);
 }
 
 export async function clearSignInAttempts(email: string) {
-  const { clearFailedAttempts } = await import('@/lib/auth/security');
-  clearFailedAttempts(email);
+  await clearFailedAttempts(email);
 }

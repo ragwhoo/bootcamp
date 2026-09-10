@@ -1,60 +1,101 @@
-const attempts = new Map<string, { count: number; resetAt: number }>();
+import { neon } from '@neondatabase/serverless';
+
+const sql = neon(process.env.DATABASE_URL!);
 
 const MAX_ATTEMPTS = 5;
-const LOCKOUT_MS = 15 * 60 * 1000; // 15 minutes
-const RATE_WINDOW_MS = 60 * 1000; // 1 minute
+const LOCKOUT_SECONDS = 15 * 60; // 15 minutes
+const RATE_WINDOW_SECONDS = 60; // 1 minute
 const MAX_RATE = 10; // max requests per window
 
-export function checkRateLimit(key: string): { allowed: boolean; retryAfter?: number } {
-  const now = Date.now();
-  const record = attempts.get(key);
+export async function checkRateLimit(key: string): Promise<{ allowed: boolean; retryAfter?: number }> {
+  const now = new Date();
 
-  if (!record || now > record.resetAt) {
-    attempts.set(key, { count: 1, resetAt: now + RATE_WINDOW_MS });
+  const [existing] = await sql`
+    SELECT count, reset_at FROM rate_limit
+    WHERE key = ${key} AND reset_at > ${now}
+    LIMIT 1
+  `;
+
+  if (!existing) {
+    await sql`
+      INSERT INTO rate_limit (key, count, reset_at)
+      VALUES (${key}, 1, ${new Date(now.getTime() + RATE_WINDOW_SECONDS * 1000)})
+    `;
     return { allowed: true };
   }
 
-  if (record.count >= MAX_RATE) {
-    return { allowed: false, retryAfter: Math.ceil((record.resetAt - now) / 1000) };
+  if (existing.count >= MAX_RATE) {
+    const retryAfter = Math.ceil((new Date(existing.reset_at).getTime() - now.getTime()) / 1000);
+    return { allowed: false, retryAfter };
   }
 
-  record.count++;
+  await sql`
+    UPDATE rate_limit SET count = count + 1
+    WHERE key = ${key} AND reset_at > ${now}
+  `;
   return { allowed: true };
 }
 
-export function checkAccountLockout(identifier: string): { locked: boolean; retryAfter?: number } {
+export async function checkAccountLockout(identifier: string): Promise<{ locked: boolean; retryAfter?: number }> {
   const key = `lockout:${identifier}`;
-  const record = attempts.get(key);
+  const now = new Date();
 
-  if (!record || Date.now() > record.resetAt) {
+  const [existing] = await sql`
+    SELECT count, reset_at FROM rate_limit
+    WHERE key = ${key} AND reset_at > ${now}
+    LIMIT 1
+  `;
+
+  if (!existing) {
     return { locked: false };
   }
 
-  return { locked: true, retryAfter: Math.ceil((record.resetAt - Date.now()) / 1000) };
+  const retryAfter = Math.ceil((new Date(existing.reset_at).getTime() - now.getTime()) / 1000);
+  return { locked: true, retryAfter };
 }
 
-export function recordFailedAttempt(identifier: string): { locked: boolean; retryAfter?: number } {
+export async function recordFailedAttempt(identifier: string): Promise<{ locked: boolean; retryAfter?: number }> {
   const key = `lockout:${identifier}`;
-  const now = Date.now();
-  const record = attempts.get(key);
+  const now = new Date();
 
-  if (!record || now > record.resetAt) {
-    attempts.set(key, { count: 1, resetAt: now + LOCKOUT_MS });
+  const [existing] = await sql`
+    SELECT count, reset_at FROM rate_limit
+    WHERE key = ${key} AND reset_at > ${now}
+    LIMIT 1
+  `;
+
+  if (!existing || now > new Date(existing.reset_at)) {
+    await sql`
+      INSERT INTO rate_limit (key, count, reset_at)
+      VALUES (${key}, 1, ${new Date(now.getTime() + LOCKOUT_SECONDS * 1000)})
+      ON CONFLICT (key) DO UPDATE SET count = 1, reset_at = ${new Date(now.getTime() + LOCKOUT_SECONDS * 1000)}
+    `;
     return { locked: false };
   }
 
-  record.count++;
-
-  if (record.count >= MAX_ATTEMPTS) {
-    record.resetAt = now + LOCKOUT_MS;
-    return { locked: true, retryAfter: Math.ceil(LOCKOUT_MS / 1000) };
+  if (existing.count + 1 >= MAX_ATTEMPTS) {
+    const resetAt = new Date(now.getTime() + LOCKOUT_SECONDS * 1000);
+    await sql`
+      UPDATE rate_limit SET count = count + 1, reset_at = ${resetAt}
+      WHERE key = ${key}
+    `;
+    return { locked: true, retryAfter: LOCKOUT_SECONDS };
   }
 
+  await sql`
+    UPDATE rate_limit SET count = count + 1
+    WHERE key = ${key}
+  `;
   return { locked: false };
 }
 
-export function clearFailedAttempts(identifier: string): void {
-  attempts.delete(`lockout:${identifier}`);
+export async function clearFailedAttempts(identifier: string): Promise<void> {
+  const key = `lockout:${identifier}`;
+  await sql`DELETE FROM rate_limit WHERE key = ${key}`;
+}
+
+export async function cleanupExpiredEntries(): Promise<void> {
+  await sql`DELETE FROM rate_limit WHERE reset_at < NOW()`;
 }
 
 export function validatePassword(password: string): { valid: boolean; error?: string } {
