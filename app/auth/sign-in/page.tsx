@@ -5,7 +5,6 @@ import { signInWithEmail } from './actions';
 import { useState } from 'react';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { FcGoogle } from 'react-icons/fc';
-import Link from 'next/link';
 import { Button } from '@/components/base-ui/button';
 import { Input } from '@/components/base-ui/input';
 import { Label } from '@/components/base-ui/label';
@@ -123,13 +122,7 @@ export default function SignInForm() {
       </form>
 
       <p className="text-muted-foreground text-center text-sm mt-8">
-        New here?{' '}
-        <Link
-          href="/auth/sign-up"
-          className="text-primary font-medium underline-offset-4 transition-all hover:underline"
-        >
-          Create a free account
-        </Link>
+        Contact your administrator for account access.
       </p>
     </AuthLayout>
   );
