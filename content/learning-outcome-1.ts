@@ -20,7 +20,10 @@ export const learningOutcome1 = {
               { term: "Client", definition: "A client is a computer or system that accesses services made available by a server. Clients request resources and servers respond to those requests." },
               { term: "Network Operating System (NOS)", definition: "A Network Operating System is a specialized operating system designed to support workstations, file sharing, and other network services. It manages network resources and provides communication between devices." },
               { term: "Hypervisor", definition: "A hypervisor is a software, firmware, or hardware that creates and runs virtual machines. It allows multiple operating systems to share a single physical host." },
-              { term: "Virtualization", definition: "Virtualization is the process of creating a virtual version of something, including virtual computer hardware platforms, storage devices, and networking resources." },
+              { term: "Virtualization", definition: "Virtualization is the process of creating a virtual version of a physical computing resource, such as a computer, server, storage, network, or operating system. Instead of having separate physical machines for each function, virtualization allows multiple virtual systems to run on a single physical machine." },
+              { term: "VMware Workstation", definition: "VMware Workstation is a Type-2 hypervisor that runs on top of a host operating system. It allows you to create and run multiple virtual machines on a single physical computer." },
+              { term: "Host", definition: "The physical computer running VMware Workstation. The host provides the hardware resources that virtual machines use." },
+              { term: "Guest", definition: "The operating system running inside a virtual machine. The guest OS behaves as if it is running on a physical machine, but it is actually using virtualized hardware." },
             ],
           },
         },
@@ -32,37 +35,55 @@ export const learningOutcome1 = {
             intro: "Server virtualization is the process of dividing a physical server into multiple virtual servers, each with its own operating system and applications. This maximizes resource utilization and reduces hardware costs.",
             subsections: [
               {
+                title: "What is Virtualization?",
+                content: "Virtualization is the process of creating a virtual version of a physical computing resource. Instead of having separate physical machines (Physical Computer 1 → Windows Server, Physical Computer 2 → Windows Client), you can have one physical PC running VMware Workstation with multiple virtual machines inside it."
+              },
+              {
+                title: "Why Virtualization?",
+                content: [
+                  "Reduced hardware requirements — consolidate multiple servers onto fewer physical machines",
+                  "Isolation — each VM is isolated from others, so a problem in one doesn't affect the rest",
+                  "Easy testing — test software and configurations in VMs without risking the physical machine",
+                  "Snapshots — take a snapshot of a VM state and revert to it if something goes wrong",
+                  "Rapid deployment — deploy new servers in minutes instead of hours",
+                  "Resource allocation — dynamically allocate CPU, RAM, and storage to VMs as needed",
+                  "Disaster recovery — VMs can be backed up and restored quickly",
+                  "Running multiple operating systems — run Windows, Linux, and other OSes on the same hardware",
+                  "Lab environments — create test labs without purchasing additional hardware"
+                ]
+              },
+              {
                 title: "Hypervisor Technologies",
                 content: "A hypervisor (also called a Virtual Machine Monitor) is the foundational technology that enables virtualization. It sits between the hardware and the operating systems, managing the allocation of physical resources to virtual machines."
               },
               {
-                title: "Type 1 Hypervisor / Bare Metal Hypervisor",
-                content: "A Type 1 hypervisor runs directly on the host's hardware to control the hardware and to manage guest operating systems. It does not require an underlying host operating system. Examples include VMware ESXi, Microsoft Hyper-V, and Citrix XenServer. Type 1 hypervisors are known for their performance and efficiency because they interact directly with hardware."
+                title: "Type 1 Hypervisor / Bare Metal",
+                content: "A Type 1 hypervisor runs directly on the host's hardware to control the hardware and manage guest operating systems. It does not require an underlying host operating system. Examples: VMware ESXi, Microsoft Hyper-V Server, Xen. The stack is: Hardware → Hypervisor → VMs."
               },
               {
-                title: "Type 2 Hypervisor / Hosted Hypervisor",
-                content: "A Type 2 hypervisor runs on top of a conventional operating system just as other computer programs do. Examples include VMware Workstation, Oracle VirtualBox, and VMware Fusion. Type 2 hypervisors are easier to set up but typically have lower performance compared to Type 1 hypervisors because they run through the host OS."
+                title: "Type 2 Hypervisor / Hosted",
+                content: "A Type 2 hypervisor runs on top of a conventional operating system just as other computer programs do. Examples: VMware Workstation, Oracle VirtualBox, VMware Fusion. The stack is: Hardware → Host OS → Hypervisor → VMs. Type 2 hypervisors are easier to set up but typically have lower performance than Type 1."
               },
               {
                 title: "Full Virtualization",
-                content: "Full virtualization uses a hypervisor to simulate a complete hardware environment for the guest operating system. The guest OS is completely isolated and unaware that it is running in a virtual environment. All hardware calls are intercepted by the hypervisor."
+                content: "Full virtualization uses a hypervisor to simulate a complete hardware environment for the guest operating system. The guest OS is completely isolated and unaware it is running in a virtual environment. All hardware calls are intercepted by the hypervisor."
               },
               {
                 title: "Para-virtualization",
-                content: "Para-virtualization is a virtualization technique where the guest operating system is modified to be aware of the hypervisor. This reduces the overhead of virtualization because the guest OS can communicate directly with the hypervisor through a special API, rather than emulating hardware."
+                content: "Para-virtualization is a technique where the guest operating system is modified to be aware of the hypervisor. This reduces overhead because the guest OS can communicate directly with the hypervisor through a special API, rather than emulating hardware."
               },
               {
                 title: "Hardware-assisted Virtualization",
-                content: "Hardware-assisted virtualization uses CPU features such as Intel VT-x or AMD-V to improve the performance of virtual machines. These hardware extensions provide support for efficient virtualization by allowing direct access to hardware resources from the hypervisor."
+                content: "Hardware-assisted virtualization uses CPU features such as Intel VT-x or AMD-V to improve VM performance. These hardware extensions provide support for efficient virtualization by allowing direct access to hardware resources from the hypervisor."
               },
               {
                 title: "Types of Server Virtualization",
-                content: "Server virtualization can be categorized by the approach used: full virtualization, para-virtualization, hardware-assisted virtualization, and operating-system-level virtualization (containers). Each type offers different trade-offs between performance, isolation, and flexibility."
+                content: "Server virtualization can be categorized by approach: full virtualization, para-virtualization, hardware-assisted virtualization, and operating-system-level virtualization (containers). Each type offers different trade-offs between performance, isolation, and flexibility."
               },
               {
-                title: "Benefits of Server Virtualization",
+                title: "Benefits of Virtualization",
                 content: [
-                  "Reduced hardware costs by consolidating multiple servers onto fewer physical machines",
+                  "Reduced hardware costs — consolidate multiple servers onto fewer physical machines",
                   "Improved resource utilization and efficiency",
                   "Simplified management and administration",
                   "Faster deployment of new servers and applications",
@@ -70,6 +91,22 @@ export const learningOutcome1 = {
                   "Reduced power consumption and physical space requirements",
                   "Greater flexibility and scalability"
                 ]
+              },
+              {
+                title: "Virtual Networking",
+                content: "VMware provides several network modes for virtual machines. Understanding these is critical for configuring VM communication."
+              },
+              {
+                title: "Bridged Networking",
+                details: "In bridged mode, the VM behaves like another physical device on the physical network. It gets its own IP address from the physical network's DHCP server (or can be assigned a static IP). The VM is directly accessible from other devices on the network."
+              },
+              {
+                title: "NAT Networking",
+                details: "In NAT mode, the VM accesses external networks through the host. The VM shares the host's IP address for external communication but has its own private IP on the VMware virtual network. The VM can access the internet but is not directly accessible from the physical network."
+              },
+              {
+                title: "Host-Only Networking",
+                details: "In host-only mode, VMs communicate with the host and other host-only VMs but normally don't have direct internet access. This is useful for isolated lab environments where you want VMs to talk to each other without external network access."
               },
             ],
           },
@@ -79,14 +116,15 @@ export const learningOutcome1 = {
           number: "1.1.3",
           title: "Server Requirements",
           content: {
-            intro: "Proper server requirements ensure that virtualized environments run efficiently and reliably. Requirements are divided into hardware and software categories.",
+            intro: "Proper server requirements ensure that virtualized environments run efficiently and reliably. When creating VMs, you need to understand CPU, RAM, storage, and networking requirements.",
             subsections: [
               {
                 title: "Hardware Requirements",
                 content: [
-                  { title: "CPU", details: "A multi-core processor with hardware virtualization support (Intel VT-x or AMD-V) is essential. More cores and higher clock speeds improve virtual machine performance." },
-                  { title: "RAM", details: "Sufficient memory is critical for running multiple virtual machines. The server should have enough RAM to accommodate the host OS, all guest OSes, and applications." },
-                  { title: "Storage", details: "Fast storage such as SSDs or NVMe drives improves I/O performance. RAID configurations can provide redundancy and performance benefits." },
+                  { title: "CPU", details: "A multi-core processor with hardware virtualization support (Intel VT-x or AMD-V) is essential. When allocating CPU to VMs: a physical CPU with 8 cores can be split into 2 virtual CPUs per VM. The VM does not physically receive separate CPUs — VMware schedules virtual CPU execution on the physical CPU." },
+                  { title: "RAM", details: "Sufficient memory is critical. Example: Physical machine = 16 GB RAM, Server VM = 4 GB, Client VM = 4 GB, Remaining = host requirements. You should never allocate all RAM to VMs because the host OS needs memory too." },
+                  { title: "Storage (VMDK)", details: "Virtual disks use VMDK files. Physical Disk → VMDK → Windows Server → C: drive. Key concepts: disk size, thin provisioning (allocates space on demand), thick provisioning (allocates all space upfront), and virtual disk expansion. Snapshots can affect disk performance." },
+                  { title: "ISO Image", details: "An ISO is an image of an optical disc/filesystem, commonly used to install operating systems. Example: Windows Server ISO → VM CD/DVD Drive → Boot → Windows Installation." },
                   { title: "Network Connectivity", details: "Multiple network interfaces support network segregation and redundancy. Gigabit or higher Ethernet is recommended." },
                   { title: "Redundancy and High Availability", details: "Redundant power supplies, cooling, and network paths ensure continuous operation. Failover mechanisms minimize downtime." },
                 ]
@@ -95,11 +133,15 @@ export const learningOutcome1 = {
                 title: "Software Requirements",
                 content: [
                   { title: "Operating System", details: "The host server must run a compatible operating system. For Type 1 hypervisors, the hypervisor acts as the OS directly." },
+                  { title: "VMware Workstation", details: "Required for Type-2 virtualization. Installs on top of the host OS and provides the interface for creating and managing VMs." },
                   { title: "Server Software", details: "Required server applications include web servers, DNS servers, DHCP servers, and domain controllers." },
                   { title: "Security Software", details: "Firewalls, antivirus software, and intrusion detection systems protect the server environment." },
                   { title: "Server Management Tools", details: "Tools such as VMware vSphere Client, Microsoft Server Manager, and PowerShell are essential for administration." },
-                  { title: "Application Compatibility", details: "Applications must be compatible with the server's operating system and virtualization platform." },
                 ]
+              },
+              {
+                title: "VM Configuration Overview",
+                content: "When creating a VM, you need to configure: VM name, VM location, ISO image, CPU cores, RAM amount, hard disk size, network adapter type, CD/DVD drive, firmware type, and boot order."
               },
             ],
           },
@@ -193,6 +235,56 @@ export const learningOutcome1 = {
               "Configure network settings including IP address and DNS",
               "Complete the installation and reboot the VM",
               "Install VMware Tools for optimal performance and integration"
+            ],
+          },
+        },
+        {
+          id: "1-2-5",
+          number: "1.2.5",
+          title: "Basic Network Configuration",
+          content: {
+            intro: "Every networked device needs a set of network parameters to communicate. Understanding these parameters is essential for configuring both servers and clients.",
+            subsections: [
+              { title: "IP Address", details: "An IP address is a unique numerical identifier assigned to each device on a network. It is used to identify and locate devices. Example: 50.0.0.2." },
+              { title: "Subnet Mask", details: "A subnet mask determines which portion of an IP address represents the network and which represents the host. Example: 255.255.255.0 means the first three octets identify the network." },
+              { title: "Default Gateway", details: "The default gateway is the router interface that connects the local network to other networks. It is used to route traffic outside the local subnet. Example: 50.0.0.1." },
+              { title: "DNS Server", details: "The DNS server address specifies which DNS server the device uses to resolve domain names to IP addresses. Example: 50.0.0.1 (often the domain controller)." },
+              { title: "DHCP vs Static IP", details: "DHCP (Dynamic Host Configuration Protocol) automatically assigns IP addresses to clients. A static IP is manually configured on the device and does not change. Servers typically use static IPs; clients often use DHCP." },
+              { title: "Example Configuration", details: "IP: 50.0.0.2, Subnet: 255.255.255.0, Gateway: 50.0.0.1, DNS: 50.0.0.1. You should understand what each parameter does rather than just memorizing values." },
+            ],
+          },
+        },
+        {
+          id: "1-2-6",
+          number: "1.2.6",
+          title: "Basic Windows Networking Commands",
+          content: {
+            intro: "Windows provides several command-line tools for viewing network configuration, testing connectivity, and troubleshooting network issues.",
+            steps: [
+              { title: "ipconfig", details: "Displays basic TCP/IP configuration including IP address, subnet mask, and default gateway." },
+              { title: "ipconfig /all", details: "Displays all network configuration details including MAC address, DHCP server, DNS servers, and lease information." },
+              { title: "ipconfig /release", details: "Releases the current DHCP lease, releasing the assigned IP address." },
+              { title: "ipconfig /renew", details: "Requests a new IP address lease from the DHCP server." },
+              { title: "ipconfig /displaydns", details: "Displays the contents of the DNS client resolver cache." },
+              { title: "ipconfig /flushdns", details: "Flushes the DNS client resolver cache, clearing all cached DNS entries." },
+              { title: "ping", details: "Tests network connectivity to another device. Example: ping 50.0.0.1 tests connectivity to the server." },
+              { title: "nslookup", details: "Queries DNS servers to obtain domain name or IP address mapping. Used to test DNS resolution." },
+              { title: "route print", details: "Displays the IP routing table, showing how network traffic is routed." },
+              { title: "netstat -ano", details: "Displays active network connections, listening ports, and associated process IDs." },
+            ],
+          },
+        },
+        {
+          id: "1-2-7",
+          number: "1.2.7",
+          title: "Server Core Fundamentals",
+          content: {
+            intro: "Server Core is a minimal Windows Server installation without the traditional graphical desktop experience. It is important because it reduces attack surface and resource usage.",
+            subsections: [
+              { title: "What is Server Core?", details: "Server Core is a minimal installation option for Windows Server that removes the GUI and many graphical management tools. Instead of GUI → Control Panel → Server Manager, you work primarily through CMD, PowerShell, SConfig, and remote management tools." },
+              { title: "Why Use Server Core?", details: "Server Core has a smaller disk footprint, requires fewer updates, uses less RAM, and has a reduced attack surface because fewer components are installed." },
+              { title: "Server Core Commands", details: "Key commands: sconfig (opens the Server Configuration tool), hostname (displays computer name), ipconfig (shows network config), whoami (shows current user), systeminfo (displays system information). To enter PowerShell from CMD, type: powershell." },
+              { title: "Remote Management", details: "Server Core is typically managed remotely using Server Manager, RSAT tools, PowerShell remoting, or RDP. This is the primary administration model for Server Core deployments." },
             ],
           },
         },
@@ -299,19 +391,23 @@ export const learningOutcome1 = {
           content: {
             intro: "Server roles and features define what services a Windows Server can provide to the network. DNS and DHCP are two of the most fundamental roles for network infrastructure.",
             subsections: [
-              { title: "DNS", details: "DNS (Domain Name System) translates domain names into IP addresses, enabling users to access websites and network resources using human-readable names." },
-              { title: "DNS Queries", details: "A DNS query is a request sent to a DNS server to resolve a domain name to an IP address. Queries can be recursive or iterative." },
+              { title: "DNS", details: "DNS (Domain Name System) translates names into IP addresses and performs other name-resolution functions. Instead of remembering 50.0.0.1, you can use server01.example.local. DNS is critical to Active Directory — if DNS is incorrectly configured, domain joining can fail." },
+              { title: "DNS Queries", details: "A DNS query is a request sent to a DNS server to resolve a domain name to an IP address. Recursive query: the DNS server resolves the query on behalf of the client. Iterative query: the DNS server provides a referral to another DNS server." },
               { title: "DNS Operation", details: "DNS operates by resolving domain names through a hierarchical system of servers. When a client requests a domain name, the DNS server searches its cache, zone files, or forwards the query to other servers." },
+              { title: "Forward vs Reverse Lookup", details: "Forward lookup: NAME → IP (e.g., server01.local → 50.0.0.1). Reverse lookup: IP → NAME (e.g., 50.0.0.1 → server01.local). Both are essential for complete DNS resolution." },
               { title: "DNS Server Roles", details: "The DNS Server role allows a Windows Server to host DNS zones, respond to queries, and maintain DNS records for the network." },
               { title: "Root Hints", details: "Root hints are a list of root DNS servers that a DNS server uses to resolve queries for domains outside its own zones." },
               { title: "DNS Zones", details: "A DNS zone is a portion of the DNS namespace that is administered by a specific organization. Zones contain resource records for the domain." },
               { title: "Zone Files", details: "Zone files are text files that contain the resource records for a DNS zone. They define the mapping between domain names and IP addresses." },
-              { title: "DHCP", details: "DHCP (Dynamic Host Configuration Protocol) automatically assigns IP addresses and network configuration parameters to devices on a network." },
-              { title: "DHCP Messages", details: "DHCP uses a four-step process involving DHCP Discover, Offer, Request, and Acknowledgement messages to assign IP addresses." },
-              { title: "Discover", details: "DHCP Discover is the first message sent by a client to locate available DHCP servers on the network." },
-              { title: "Offer", details: "DHCP Offer is the response from a DHCP server offering an IP address and configuration parameters to the client." },
-              { title: "Request", details: "DHCP Request is the client's acceptance of the offered IP address and configuration." },
-              { title: "Acknowledgement", details: "DHCP Acknowledgement confirms the IP address lease to the client, completing the four-step process." },
+              { title: "DHCP", details: "DHCP (Dynamic Host Configuration Protocol) automatically provides network configuration to clients. Without DHCP, an administrator must manually configure each client's IP settings. With DHCP, clients automatically receive their IP configuration." },
+              { title: "What DHCP Provides", details: "A DHCP server can provide: IP address, subnet mask, default gateway, DNS server, DNS domain name, lease duration, and other DHCP options. Example: Client receives IP: 50.0.0.20, Subnet: 255.255.255.0, Gateway: 50.0.0.1, DNS: 50.0.0.1." },
+              { title: "DHCP DORA Process", details: "The DHCP process follows four steps: D → Discover (client broadcasts: 'Is there a DHCP server?'), O → Offer (DHCP server offers an IP), R → Request (client requests that offered IP), A → Acknowledgement (server confirms the lease). This is the most important DHCP concept to understand." },
+              { title: "DHCP Scope", details: "A scope defines the range of IP addresses a DHCP server can distribute. Example: Network 50.0.0.0/24, Scope 50.0.0.10 to 50.0.0.100. Clients can receive addresses within that range." },
+              { title: "DHCP Exclusion", details: "An exclusion prevents DHCP from assigning certain addresses. Example: Scope 50.0.0.10 - 50.0.0.100, Excluded: 50.0.0.1, 50.0.0.2. These addresses might be statically assigned to servers." },
+              { title: "DHCP Reservation", details: "A reservation ensures a specific IP address is always assigned to the same device based on its MAC address. Example: Client MAC AA-BB-CC-DD-EE-FF always receives 50.0.0.20. Difference: Static IP is configured directly on the client; Reservation is configured on the DHCP server." },
+              { title: "DHCP Lease", details: "A lease is the period for which a client is allowed to use an assigned IP. Understand: lease, renewal, expiration, and rebinding. Commands: ipconfig /release (releases current lease), ipconfig /renew (requests new lease), ipconfig /all (shows lease details)." },
+              { title: "DHCP Authorization", details: "In an Active Directory environment, DHCP servers need to be authorized before they can serve clients. Unauthorized (rogue) DHCP servers can provide incorrect IP, gateway, and DNS settings, disrupting network connectivity." },
+              { title: "DHCP Relay Agent", details: "A DHCP relay agent forwards DHCP requests from clients on one subnet to a DHCP server on another subnet, enabling centralized DHCP management across multiple network segments." },
               { title: "DHCP Fault Tolerance", details: "DHCP fault tolerance ensures that DHCP services remain available even if a DHCP server fails, through mechanisms like failover and clustering." },
               { title: "DHCP Failover", details: "DHCP failover allows two DHCP servers to work together to provide IP addresses, providing redundancy and load balancing." },
               { title: "DHCP Clustering", details: "DHCP clustering groups multiple DHCP servers to provide high availability and load distribution for IP address assignments." },
@@ -489,7 +585,7 @@ export const learningOutcome1 = {
           number: "1.7.1",
           title: "nslookup Command for Resolving DNS",
           content: {
-            intro: "The nslookup command is a network administration tool used to query DNS servers to obtain domain name or IP address mapping.",
+            intro: "The nslookup command is a network administration tool used to query DNS servers to obtain domain name or IP address mapping. It is essential for troubleshooting DNS issues.",
             steps: [
               "Open Command Prompt or PowerShell",
               "Type nslookup followed by the domain name",
@@ -498,8 +594,8 @@ export const learningOutcome1 = {
             ],
             examples: [
               { command: "nslookup", description: "Displays DNS resolver configuration and default server information." },
-              { command: "nslookup example.com", description: "Resolves example.com to its IP address." },
-              { command: "nslookup 8.8.8.8", description: "Performs a reverse DNS lookup for the IP address." },
+              { command: "nslookup server01.example.local", description: "Resolves the domain name to its IP address." },
+              { command: "nslookup 50.0.0.1", description: "Performs a reverse DNS lookup for the IP address." },
               { command: "nslookup -type=mx example.com", description: "Queries MX records for the domain." },
             ]
           },
@@ -524,6 +620,22 @@ export const learningOutcome1 = {
               { command: "ipconfig /renew", description: "Renews the DHCP lease." },
               { command: "ipconfig /release", description: "Releases the current DHCP lease." },
             ]
+          },
+        },
+        {
+          id: "1-7-3",
+          number: "1.7.3",
+          title: "Additional Network Troubleshooting Commands",
+          content: {
+            intro: "Beyond ipconfig and nslookup, Windows provides several additional tools for testing connectivity and troubleshooting network issues.",
+            steps: [
+              { title: "ping", details: "Tests basic network connectivity to another device. Example: ping 50.0.0.1 tests connectivity to the server. If ping works but name resolution fails, it is a DNS problem." },
+              { title: "tracert", details: "Traces the route packets take to a destination, showing each hop along the way. Useful for identifying where network connectivity breaks down." },
+              { title: "Test-NetConnection", details: "PowerShell command for comprehensive network connectivity testing. Example: Test-NetConnection -ComputerName server01 -Port 80 tests if port 80 is open." },
+              { title: "telnet", details: "Tests specific port connectivity to a remote host. Example: telnet 50.0.0.1 53 tests if DNS port 53 is accessible." },
+              { title: "route print", details: "Displays the IP routing table, showing how network traffic is routed through the system." },
+              { title: "netstat -ano", details: "Displays all active network connections and the listening ports with their process IDs." },
+            ],
           },
         },
       ],
