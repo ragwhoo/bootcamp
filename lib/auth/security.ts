@@ -15,6 +15,7 @@ export async function checkRateLimit(key: string): Promise<{ allowed: boolean; r
   const sql = getSql();
   if (!sql) return { allowed: true };
   const now = new Date();
+  const resetAt = new Date(now.getTime() + RATE_WINDOW_SECONDS * 1000);
 
   const [existing] = await sql`
     SELECT count, reset_at FROM rate_limit
@@ -25,7 +26,16 @@ export async function checkRateLimit(key: string): Promise<{ allowed: boolean; r
   if (!existing) {
     await sql`
       INSERT INTO rate_limit (key, count, reset_at)
-      VALUES (${key}, 1, ${new Date(now.getTime() + RATE_WINDOW_SECONDS * 1000)})
+      VALUES (${key}, 1, ${resetAt})
+      ON CONFLICT (key) DO UPDATE
+      SET count = CASE
+        WHEN rate_limit.reset_at <= ${now} THEN 1
+        ELSE rate_limit.count + 1
+      END,
+      reset_at = CASE
+        WHEN rate_limit.reset_at <= ${now} THEN ${resetAt}
+        ELSE rate_limit.reset_at
+      END
     `;
     return { allowed: true };
   }
