@@ -6,10 +6,10 @@ function getSql() {
   return neon(url);
 }
 
-const MAX_ATTEMPTS = 5;
+const MAX_ATTEMPTS = 3;
 const LOCKOUT_SECONDS = 15 * 60; // 15 minutes
 const RATE_WINDOW_SECONDS = 60; // 1 minute
-const MAX_RATE = 10; // max requests per window
+const MAX_RATE = 15; // max requests per window
 
 export async function checkRateLimit(key: string): Promise<{ allowed: boolean; retryAfter?: number }> {
   const sql = getSql();
