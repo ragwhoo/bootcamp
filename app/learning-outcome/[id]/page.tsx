@@ -41,9 +41,12 @@ export default async function LearningOutcomePage({ params }: { params: Promise<
       <div className="space-y-8">
         {outcome.sections.map((section: any) => (
           <div key={section.id} className="rounded-xl border border-white/10 bg-white/5 p-6 backdrop-blur-sm">
-            <h2 className="mb-4 text-xl font-bold text-white">
+            <h2 className="mb-2 text-xl font-bold text-white">
               {section.number} {section.title}
             </h2>
+            {section.description && (
+              <p className="mb-4 text-sm text-gray-400">{section.description}</p>
+            )}
             <ul className="space-y-2">
               {section.topics.map((topic: any) => (
                 <li key={topic.id}>

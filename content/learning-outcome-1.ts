@@ -8,6 +8,7 @@ export const learningOutcome1 = {
       id: "1-1",
       number: "1.1",
       title: "Introduction to Server Administration",
+      description: "Foundational concepts of server administration including virtualization technologies, hypervisor types, and server hardware requirements.",
       topics: [
         {
           id: "1-1-1",
@@ -205,6 +206,7 @@ export const learningOutcome1 = {
       id: "1-2",
       number: "1.2",
       title: "Installation of Server OS",
+      description: "Step-by-step guide to installing server operating systems including RAID configuration, hypervisor installation, VM creation, and guest OS setup.",
       topics: [
         {
           id: "1-2-1",
@@ -413,6 +415,7 @@ export const learningOutcome1 = {
       id: "1-3",
       number: "1.3",
       title: "Creation of Domain Controller",
+      description: "Setting up Active Directory Domain Services, configuring administrative tools, and promoting a server to a domain controller.",
       topics: [
         {
           id: "1-3-0",
@@ -502,6 +505,7 @@ export const learningOutcome1 = {
       id: "1-4",
       number: "1.4",
       title: "Installation of Server Roles and Features",
+      description: "Understanding the difference between server roles and features, and installing DNS and DHCP roles via Server Manager.",
       topics: [
         {
           id: "1-4-1",
@@ -599,6 +603,7 @@ export const learningOutcome1 = {
       id: "1-5",
       number: "1.5",
       title: "Configuration of DNS",
+      description: "Configuring DNS lookup zones, creating records, and understanding forward and reverse DNS resolution.",
       topics: [
         {
           id: "1-5-1",
@@ -663,6 +668,7 @@ export const learningOutcome1 = {
       id: "1-6",
       number: "1.6",
       title: "Configuration of DHCP Parameters",
+      description: "Configuring DHCP scopes, reservations, failover, and understanding the DORA process and lease lifecycle.",
       topics: [
         {
           id: "1-6-1",
@@ -786,6 +792,7 @@ export const learningOutcome1 = {
       id: "1-7",
       number: "1.7",
       title: "Monitoring of Server Services",
+      description: "Using nslookup, ipconfig, and other tools to monitor and troubleshoot DNS and DHCP services.",
       topics: [
         {
           id: "1-7-1",

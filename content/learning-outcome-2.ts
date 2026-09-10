@@ -8,6 +8,7 @@ export const learningOutcome2 = {
       id: "2-1",
       number: "2.1",
       title: "Creation of User Accounts",
+      description: "Understanding user account policies, account types, and creating new user accounts in Active Directory.",
       topics: [
         {
           id: "2-1-0",
@@ -79,6 +80,7 @@ export const learningOutcome2 = {
       id: "2-2",
       number: "2.2",
       title: "Management of User Accounts",
+      description: "Managing the user account lifecycle including password changes, activation, deactivation, and account customization.",
       topics: [
         {
           id: "2-2-0",
@@ -107,6 +109,7 @@ export const learningOutcome2 = {
       id: "2-3",
       number: "2.3",
       title: "Management of User Groups",
+      description: "Creating and managing user groups, adding and removing members, and understanding group-based permission management.",
       topics: [
         {
           id: "2-3-0",
@@ -133,6 +136,7 @@ export const learningOutcome2 = {
       id: "2-4",
       number: "2.4",
       title: "Management of Organization Units (OU)",
+      description: "Creating and managing OUs in Active Directory, moving users between OUs, and understanding OU hierarchy and Group Policy effects.",
       topics: [
         {
           id: "2-4-0",
@@ -158,6 +162,7 @@ export const learningOutcome2 = {
       id: "2-5",
       number: "2.5",
       title: "Assignment of Permission to Users",
+      description: "Granting and revoking file/folder permissions, configuring remote access permissions, and managing user access to network resources.",
       topics: [
         {
           id: "2-5-0",
@@ -205,6 +210,7 @@ export const learningOutcome2 = {
       id: "2-6",
       number: "2.6",
       title: "Management of Client Machines",
+      description: "Joining client computers to the domain, delegation of control, and understanding Group Policy Objects (GPOs).",
       topics: [
         {
           id: "2-6-1",

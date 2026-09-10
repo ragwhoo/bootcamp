@@ -8,6 +8,7 @@ export const learningOutcome3 = {
       id: "3-1",
       number: "3.1",
       title: "Introduction to Web Servers",
+      description: "Understanding web server fundamentals, HTTP protocol, and comparing different web server platforms.",
       topics: [
         {
           id: "3-1-1",
@@ -72,6 +73,7 @@ export const learningOutcome3 = {
       id: "3-2",
       number: "3.2",
       title: "Configure IIS With Windows Server",
+      description: "Setting up IIS web server on Windows Server including DNS integration and role installation.",
       topics: [
         {
           id: "3-2-1",
@@ -115,6 +117,7 @@ export const learningOutcome3 = {
       id: "3-3",
       number: "3.3",
       title: "Management of IIS Web Server",
+      description: "Managing IIS through handler mappings, connection tasks, FTP, and site bindings for HTTP/HTTPS.",
       topics: [
         {
           id: "3-3-1",
@@ -220,6 +223,7 @@ export const learningOutcome3 = {
       id: "3-4",
       number: "3.4",
       title: "Setting Environment of Developed Web App",
+      description: "Configuring backend technologies, hosting platforms, and web application environment settings in IIS.",
       topics: [
         {
           id: "3-4-1",
@@ -313,6 +317,7 @@ export const learningOutcome3 = {
       id: "3-5",
       number: "3.5",
       title: "Verify Server Environment Requirement",
+      description: "Testing server environment requirements including network connectivity, security, and local URL accessibility.",
       topics: [
         {
           id: "3-5-1",
@@ -360,6 +365,7 @@ export const learningOutcome3 = {
       id: "3-6",
       number: "3.6",
       title: "Hosting Web App",
+      description: "Deploying web applications to Windows Server including file transfer, DNS configuration, port setup, and error handling.",
       topics: [
         {
           id: "3-6-1",
@@ -492,6 +498,7 @@ export const learningOutcome3 = {
       id: "3-7",
       number: "3.7",
       title: "Verification of Successfully Hosted Web App",
+      description: "Verifying web application deployment through local and online accessibility testing, speed checks, and size verification.",
       topics: [
         {
           id: "3-7-1",
