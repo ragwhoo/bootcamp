@@ -11,8 +11,9 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
           <>
             <img
               src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=2070&auto=format&fit=crop"
-              alt="Modern workspace"
+              alt=""
               className="absolute inset-0 h-full w-full object-cover"
+              loading="eager"
             />
             <div className="absolute inset-0 bg-black/30" />
           </>

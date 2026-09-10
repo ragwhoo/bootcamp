@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { learningOutcome1 } from "@/content/learning-outcome-1";
 import { learningOutcome2 } from "@/content/learning-outcome-2";
 import { learningOutcome3 } from "@/content/learning-outcome-3";
@@ -28,7 +29,7 @@ export default async function TopicPage({ params }: { params: Promise<{ id: stri
     return (
       <div className="mx-auto max-w-4xl px-4 py-16 text-center">
         <h1 className="text-2xl font-bold text-white">Learning Outcome not found</h1>
-        <a href="/" className="mt-4 inline-block text-blue-400 underline hover:text-blue-300">← Back to Home</a>
+        <Link href="/" className="mt-4 inline-block text-blue-400 underline hover:text-blue-300">← Back to Home</Link>
       </div>
     );
   }
@@ -42,7 +43,7 @@ export default async function TopicPage({ params }: { params: Promise<{ id: stri
     return (
       <div className="mx-auto max-w-4xl px-4 py-16 text-center">
         <h1 className="text-2xl font-bold text-white">Topic not found</h1>
-        <a href="/" className="mt-4 inline-block text-blue-400 underline hover:text-blue-300">← Back to Home</a>
+        <Link href="/" className="mt-4 inline-block text-blue-400 underline hover:text-blue-300">← Back to Home</Link>
       </div>
     );
   }
@@ -254,9 +255,9 @@ export default async function TopicPage({ params }: { params: Promise<{ id: stri
   return (
     <div className="mx-auto flex min-h-[calc(100vh-52px)] max-w-7xl flex-col px-4 py-8 sm:px-6 lg:px-8">
       <nav className="mb-4 text-sm text-gray-500">
-        <a href="/" className="hover:text-white">L&D Bootcamp</a>
+        <Link href="/" className="hover:text-white">L&D Bootcamp</Link>
         <span className="mx-2 text-gray-600">/</span>
-        <a href={`/learning-outcome/${outcome.id}`} className="hover:text-white">{outcome.title}</a>
+        <Link href={`/learning-outcome/${outcome.id}`} className="hover:text-white">{outcome.title}</Link>
         <span className="mx-2 text-gray-600">/</span>
         <span className="font-medium text-white">{topic.title}</span>
       </nav>
@@ -274,14 +275,14 @@ export default async function TopicPage({ params }: { params: Promise<{ id: stri
                       const isActive = t.id === topicId;
                       return (
                         <li key={t.id}>
-                          <a
+                          <Link
                             href={`/learning-outcome/${outcome.id}/${t.id}`}
                             className={`block truncate rounded px-2 py-1 text-xs transition-colors ${
                               isActive ? "bg-white/10 font-medium text-white" : "text-gray-500 hover:bg-white/5 hover:text-gray-300"
                             }`}
                           >
                             {t.number} {t.title}
-                          </a>
+                          </Link>
                         </li>
                       );
                     })}
@@ -302,16 +303,16 @@ export default async function TopicPage({ params }: { params: Promise<{ id: stri
           <div className="mt-8 border-t border-white/10 pt-6">
             <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
               {previousHref ? (
-                <a href={previousHref} className="flex items-center gap-2 text-sm font-medium text-gray-500 transition-colors hover:text-white">
+                <Link href={previousHref} className="flex items-center gap-2 text-sm font-medium text-gray-500 transition-colors hover:text-white">
                   <span>← Previous</span>
                   <span className="truncate text-gray-600">{previous.number} {previous.title}</span>
-                </a>
+                </Link>
               ) : <div />}
               {nextHref ? (
-                <a href={nextHref} className="flex items-center gap-2 text-sm font-medium text-gray-500 transition-colors hover:text-white sm:ml-auto">
+                <Link href={nextHref} className="flex items-center gap-2 text-sm font-medium text-gray-500 transition-colors hover:text-white sm:ml-auto">
                   <span className="truncate text-gray-600">{next.number} {next.title}</span>
                   <span>Next →</span>
-                </a>
+                </Link>
               ) : <div />}
             </div>
           </div>

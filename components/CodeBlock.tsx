@@ -12,7 +12,7 @@ export function CodeBlock({ code, language = "bash" }: { code: string; language?
   };
 
   return (
-    <div className="relative my-4 rounded-lg border border-gray-200 bg-gray-900 p-4">
+    <div className="relative my-4 rounded-lg border border-white/10 bg-gray-900 p-4">
       <div className="mb-2 flex items-center justify-between">
         <span className="text-xs text-gray-400">{language}</span>
         <button

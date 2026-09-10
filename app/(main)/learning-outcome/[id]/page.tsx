@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { learningOutcome1 } from "@/content/learning-outcome-1";
 import { learningOutcome2 } from "@/content/learning-outcome-2";
 import { learningOutcome3 } from "@/content/learning-outcome-3";
@@ -16,7 +17,7 @@ export default async function LearningOutcomePage({ params }: { params: Promise<
     return (
       <div className="mx-auto max-w-4xl px-4 py-16 text-center">
         <h1 className="text-2xl font-bold text-white">Learning Outcome not found</h1>
-        <a href="/" className="mt-4 inline-block text-blue-400 underline hover:text-blue-300">← Back to Home</a>
+        <Link href="/" className="mt-4 inline-block text-blue-400 underline hover:text-blue-300">← Back to Home</Link>
       </div>
     );
   }
@@ -26,7 +27,7 @@ export default async function LearningOutcomePage({ params }: { params: Promise<
   return (
     <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
       <nav className="mb-4 text-sm text-gray-500">
-        <a href="/" className="hover:text-white">L&D Bootcamp</a>
+        <Link href="/" className="hover:text-white">L&D Bootcamp</Link>
         <span className="mx-2 text-gray-600">/</span>
         <span className="font-medium text-white">{outcome.title}</span>
       </nav>
@@ -50,13 +51,13 @@ export default async function LearningOutcomePage({ params }: { params: Promise<
             <ul className="space-y-2">
               {section.topics.map((topic: any) => (
                 <li key={topic.id}>
-                  <a
+                  <Link
                     href={`/learning-outcome/${outcome.id}/${topic.id}`}
                     className="block rounded-lg px-4 py-3 text-sm transition-colors hover:bg-white/10"
                   >
                     <span className="font-medium text-white">{topic.number}</span>{" "}
                     <span className="text-gray-400">{topic.title}</span>
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>

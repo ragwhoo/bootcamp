@@ -1,6 +1,13 @@
 import { days } from "@/content/days";
 import Link from "next/link";
 
+function getLearningOutcome(topicId: string): number {
+  const prefix = topicId.split("-")[0];
+  if (prefix === "2") return 2;
+  if (prefix === "3") return 3;
+  return 1;
+}
+
 export function generateStaticParams() {
   return days.map((d) => ({ id: d.id.toString() }));
 }
@@ -13,7 +20,7 @@ export default async function DayPage({ params }: { params: Promise<{ id: string
     return (
       <div className="mx-auto max-w-4xl px-4 py-16 text-center">
         <h1 className="text-2xl font-bold text-white">Day not found</h1>
-        <a href="/" className="mt-4 inline-block text-blue-400 underline hover:text-blue-300">← Back to Home</a>
+        <Link href="/" className="mt-4 inline-block text-blue-400 underline hover:text-blue-300">← Back to Home</Link>
       </div>
     );
   }
@@ -25,7 +32,7 @@ export default async function DayPage({ params }: { params: Promise<{ id: string
   return (
     <div className="mx-auto max-w-4xl px-4 py-8 sm:px-6 lg:px-8">
       <nav className="mb-4 text-sm text-gray-500">
-        <a href="/" className="hover:text-white">L&D Bootcamp</a>
+        <Link href="/" className="hover:text-white">L&D Bootcamp</Link>
         <span className="mx-2 text-gray-600">/</span>
         <span className="font-medium text-white">Bootcamp by Day</span>
         <span className="mx-2 text-gray-600">/</span>
@@ -45,6 +52,7 @@ export default async function DayPage({ params }: { params: Promise<{ id: string
         <div className="space-y-4">
           {day.topics.map((topic, i) => {
             const num = String(i + 1).padStart(2, "0");
+            const lo = topic.topicId ? getLearningOutcome(topic.topicId) : 1;
             const content = (
               <div className="flex items-start gap-4 rounded-xl border border-white/10 bg-white/5 p-5 backdrop-blur-sm transition-colors hover:bg-white/10">
                 <span className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-lg bg-white/10 text-sm font-bold text-white">
@@ -63,7 +71,7 @@ export default async function DayPage({ params }: { params: Promise<{ id: string
               return (
                 <Link
                   key={i}
-                  href={`/learning-outcome/1/${topic.topicId}`}
+                  href={`/learning-outcome/${lo}/${topic.topicId}`}
                   className="block"
                 >
                   {content}

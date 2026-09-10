@@ -1,15 +1,13 @@
 'use server';
 
-import { auth } from '@/lib/auth/server';
 import {
   checkRateLimit,
   checkAccountLockout,
   recordFailedAttempt,
-  clearFailedAttempts,
 } from '@/lib/auth/security';
 
-export async function signInWithEmail(
-  _prevState: { error: string; success?: boolean } | null,
+export async function checkSignInAllowed(
+  _prevState: { error: string; allowed?: boolean } | null,
   formData: FormData
 ) {
   const email = formData.get('email') as string;
@@ -19,26 +17,25 @@ export async function signInWithEmail(
     return { error: 'Email and password are required' };
   }
 
-  // Rate limit per IP (using email as proxy since we don't have IP in server actions)
   const rateKey = `signin:${email}`;
   const rateCheck = checkRateLimit(rateKey);
   if (!rateCheck.allowed) {
     return { error: `Too many attempts. Try again in ${rateCheck.retryAfter}s` };
   }
 
-  // Account lockout check
   const lockout = checkAccountLockout(email);
   if (lockout.locked) {
     return { error: `Account locked. Try again in ${lockout.retryAfter}s` };
   }
 
-  const { error } = await auth.signIn.email({ email, password });
+  return { error: '', allowed: true };
+}
 
-  if (error) {
-    recordFailedAttempt(email);
-    return { error: 'Invalid email or password' };
-  }
+export async function recordSignInFailure(email: string) {
+  recordFailedAttempt(email);
+}
 
+export async function clearSignInAttempts(email: string) {
+  const { clearFailedAttempts } = await import('@/lib/auth/security');
   clearFailedAttempts(email);
-  return { error: '', success: true };
 }

@@ -6,7 +6,7 @@ export function TopicSidebar({ currentOutcome, currentSection, sections }: { cur
         <div className="space-y-3">
           {sections.map((section) => (
             <div key={section.number}>
-              <h4 className="mb-1 text-sm font-semibold text-gray-900">{section.number} {section.title}</h4>
+              <h4 className="mb-1 text-sm font-semibold text-white">{section.number} {section.title}</h4>
               <ul className="space-y-1">
                 {section.topics.map((topic) => {
                   const isActive = topic.id === currentSection;
@@ -16,8 +16,8 @@ export function TopicSidebar({ currentOutcome, currentSection, sections }: { cur
                         href={`/learning-outcome/${currentOutcome.split(" ")[0]}/${topic.id}`}
                         className={`block truncate rounded px-2 py-1 text-xs transition-colors ${
                           isActive
-                            ? "bg-gray-100 font-medium text-black"
-                            : "text-gray-500 hover:bg-gray-50 hover:text-black"
+                            ? "bg-white/10 font-medium text-white"
+                            : "text-gray-500 hover:bg-white/5 hover:text-white"
                         }`}
                       >
                         {topic.number} {topic.title}

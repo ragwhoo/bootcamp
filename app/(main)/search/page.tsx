@@ -93,7 +93,7 @@ function SearchContent() {
   return (
     <div className="mx-auto max-w-4xl px-4 py-16 sm:px-6 lg:px-8">
       <nav className="mb-4 text-sm text-gray-500">
-        <a href="/" className="hover:text-white">L&D Bootcamp</a>
+        <Link href="/" className="hover:text-white">L&D Bootcamp</Link>
         <span className="mx-2 text-gray-600">/</span>
         <span className="font-medium text-white">Search</span>
       </nav>

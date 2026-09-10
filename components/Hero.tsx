@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { motion, type Variants } from "framer-motion";
 import { ArrowRight, Server, BookOpen, Terminal } from "lucide-react";
 
@@ -125,15 +126,15 @@ export default function Hero() {
                   variants={bodyItemVariants}
                   className="flex flex-wrap items-center gap-6"
                 >
-                  <a
+                  <Link
                     href="/learning-outcome/1"
                     className="group flex min-h-[44px] items-center gap-2 rounded-sm bg-white px-7 py-4 text-[16px] font-medium text-gray-900 shadow-[0_4px_14px_rgba(255,255,255,0.1)] transition-all will-change-transform hover:bg-gray-100 active:scale-[0.96]"
                   >
                     Start Learning
                     <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
-                  </a>
+                  </Link>
 
-                  <a
+                  <Link
                     href="/search"
                     className="group flex min-h-[44px] items-center gap-3 rounded-sm px-4 py-4 text-[16px] font-medium text-gray-300 transition-all will-change-transform hover:text-white active:scale-[0.96]"
                   >
@@ -141,7 +142,7 @@ export default function Hero() {
                     <div className="flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-white shadow-md transition-transform group-hover:scale-105">
                       <ArrowRight className="h-4 w-4" />
                     </div>
-                  </a>
+                  </Link>
                 </motion.div>
               </motion.div>
             </div>

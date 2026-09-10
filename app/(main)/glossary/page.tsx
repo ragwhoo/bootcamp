@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { glossaryCategories } from "@/content/glossary";
+import Link from "next/link";
 import * as LucideIcons from "lucide-react";
 
 function IconByName({ name, className }: { name: string; className?: string }) {
@@ -33,7 +34,7 @@ export default function GlossaryPage() {
   return (
     <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
       <nav className="mb-4 text-sm text-gray-500">
-        <a href="/" className="hover:text-white">L&D Bootcamp</a>
+        <Link href="/" className="hover:text-white">L&D Bootcamp</Link>
         <span className="mx-2 text-gray-600">/</span>
         <span className="font-medium text-white">Glossary</span>
       </nav>

@@ -6,7 +6,7 @@ import { Button } from '@/components/base-ui/button';
 import { Input } from '@/components/base-ui/input';
 import { Label } from '@/components/base-ui/label';
 import { Card } from '@/components/ui/card';
-import { User, Lock, CheckCircle, AlertCircle } from 'lucide-react';
+import { User, Lock, CheckCircle, AlertCircle, Eye, EyeOff } from 'lucide-react';
 
 export default function ProfilePage() {
   const [user, setUser] = useState<{ name?: string; email?: string; id?: string } | null>(null);
@@ -21,12 +21,18 @@ export default function ProfilePage() {
   const [submitting, setSubmitting] = useState(false);
 
   useEffect(() => {
-    authClient.getSession().then(({ data }) => {
-      if (data?.user) {
-        setUser(data.user);
-      }
-      setLoading(false);
-    });
+    authClient.getSession()
+      .then(({ data }) => {
+        if (data?.user) {
+          setUser(data.user);
+        }
+      })
+      .catch(() => {
+        setError('Failed to load session. Please refresh.');
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   }, []);
 
   const handleChangePassword = async (e: React.FormEvent) => {
@@ -124,7 +130,7 @@ export default function ProfilePage() {
                 onClick={() => setShowCurrent((v) => !v)}
                 className="text-muted-foreground hover:text-foreground absolute top-1/2 right-3 -translate-y-1/2 transition-colors"
               >
-                {showCurrent ? '🙈' : '👁️'}
+                {showCurrent ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
               </button>
             </div>
           </div>
@@ -148,7 +154,7 @@ export default function ProfilePage() {
                 onClick={() => setShowNew((v) => !v)}
                 className="text-muted-foreground hover:text-foreground absolute top-1/2 right-3 -translate-y-1/2 transition-colors"
               >
-                {showNew ? '🙈' : '👁️'}
+                {showNew ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
               </button>
             </div>
             <p className="text-muted-foreground text-xs">
