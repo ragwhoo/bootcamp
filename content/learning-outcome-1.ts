@@ -542,6 +542,22 @@ export const learningOutcome1 = {
             ],
           },
         },
+        {
+          id: "1-4-3",
+          number: "1.4.3",
+          title: "Server Role vs Feature",
+          content: {
+            intro: "Understanding the difference between server roles and features is essential for planning and managing Windows Server deployments.",
+            subsections: [
+              { title: "Server Role", details: "A server role is a major function provided by the server. It is the primary purpose of the server. Examples: DNS Server, DHCP Server, Active Directory Domain Services, File and Storage Services, Web Server (IIS), Hyper-V." },
+              { title: "Server Feature", details: "A feature is an additional component that supports or extends the functionality of a role or the server itself. It is not the primary function. Examples: .NET Framework, Telnet Client, BitLocker Drive Encryption, Failover Clustering." },
+              { title: "Role vs Feature — Key Difference", details: "A role defines WHAT the server does (its primary function). A feature defines HOW the server can be enhanced or what additional capabilities it has. Example: DHCP Server is a role. .NET Framework is a feature that supports applications running on the server." },
+              { title: "Examples of Roles", details: "DNS Server (name resolution), DHCP Server (automatic IP assignment), Active Directory Domain Services (authentication and authorization), Web Server / IIS (hosting websites), File and Storage Services (file sharing), Hyper-V (virtualization)." },
+              { title: "Examples of Features", details: ".NET Framework (application support), Telnet Client (remote command-line access), Failover Clustering (high availability), BitLocker (disk encryption), Windows Server Backup (backup and restore)." },
+              { title: "Installing Roles and Features", details: "Both roles and features are installed through Server Manager → Add Roles and Features. The wizard presents roles and features in separate sections. Some features are automatically added as dependencies when you install a role." },
+            ],
+          },
+        },
       ],
     },
     {
@@ -679,6 +695,52 @@ export const learningOutcome1 = {
             ],
           },
         },
+        {
+          id: "1-6-4",
+          number: "1.6.4",
+          title: "DHCP DORA Process",
+          content: {
+            intro: "The DHCP DORA process is the four-step mechanism by which a client obtains an IP address from a DHCP server. This is the most important DHCP concept to understand.",
+            subsections: [
+              { title: "D — Discover", details: "The client broadcasts a DHCP Discover message to all devices on the local network: 'Is there a DHCP server out there?' This is a broadcast (255.255.255.255) because the client doesn't know the DHCP server's IP yet." },
+              { title: "O — Offer", details: "One or more DHCP servers respond with a DHCP Offer message, proposing an IP address and configuration parameters. The offer includes: IP address, subnet mask, lease duration, server IP, and other options." },
+              { title: "R — Request", details: "The client selects one offer (usually the first one received) and broadcasts a DHCP Request message: 'I'll take that IP address.' This informs the chosen server and tells other servers to reclaim their offers." },
+              { title: "A — Acknowledgement", details: "The selected DHCP server sends a DHCP Acknowledgement (ACK) confirming the lease. The client now has a valid IP address and can communicate on the network. If the server cannot fulfill the request, it sends a NAK (Negative Acknowledgement)." },
+              { title: "Visual Summary", details: "CLIENT → DHCP Discover → DHCP SERVER | CLIENT ← DHCP Offer ← DHCP SERVER | CLIENT → DHCP Request → DHCP SERVER | CLIENT ← DHCP ACK ← DHCP SERVER. Know this sequence cold." },
+            ],
+          },
+        },
+        {
+          id: "1-6-5",
+          number: "1.6.5",
+          title: "DHCP Lease Lifecycle",
+          content: {
+            intro: "A DHCP lease is the period for which a client is allowed to use an assigned IP address. Understanding the lease lifecycle is critical for troubleshooting connectivity issues.",
+            subsections: [
+              { title: "Lease Assignment", details: "When a client successfully completes the DORA process, it receives a lease for a specific duration. The lease includes the IP address, subnet mask, gateway, DNS, and lease expiry time." },
+              { title: "Lease Renewal (T1 Timer)", details: "At 50% of the lease duration (T1 timer), the client attempts to renew the lease with the original DHCP server. If the server responds, a new lease is granted and the timer resets." },
+              { title: "Lease Rebinding (T2 Timer)", details: "If renewal fails at T1, the client tries again at 87.5% of the lease duration (T2 timer). If the original server is unavailable, the client broadcasts to any DHCP server to rebind the lease." },
+              { title: "Lease Expiration", details: "If the lease expires without renewal or rebinding, the client must release the IP address and start the DORA process again. The client loses network connectivity until it obtains a new lease." },
+              { title: "Lease Commands", details: "ipconfig /all — shows lease obtained and expires times. ipconfig /release — releases the current lease immediately. ipconfig /renew — requests a new lease from the DHCP server." },
+              { title: "Lease Duration Best Practices", details: "Shorter leases (hours to days) are better for networks with many transient devices (guest WiFi). Longer leases (days to weeks) reduce DHCP traffic on stable networks with mostly stationary devices." },
+            ],
+          },
+        },
+        {
+          id: "1-6-6",
+          number: "1.6.6",
+          title: "DHCP Authorization",
+          content: {
+            intro: "In an Active Directory environment, DHCP servers must be authorized before they can serve clients. This prevents rogue DHCP servers from disrupting the network.",
+            subsections: [
+              { title: "What is DHCP Authorization?", details: "DHCP authorization is the process of registering a DHCP server in Active Directory. Only authorized DHCP servers can assign IP addresses to clients in an AD domain." },
+              { title: "Why Authorization Matters", details: "Without authorization, anyone could set up a DHCP server on the network and start assigning incorrect IP addresses, gateways, and DNS settings. This is called a rogue DHCP server and can cause widespread connectivity issues." },
+              { title: "Rogue DHCP Server Scenario", details: "Network → Legit DHCP + Rogue DHCP. The rogue server may respond to client Discover messages faster than the legitimate server, giving clients incorrect network configuration. Clients would get an IP but be unable to reach the gateway or DNS." },
+              { title: "How to Authorize a DHCP Server", details: "Open DHCP Manager → Right-click the server → Authorize. The server must be a domain member and have the necessary AD permissions. After authorization, the server icon turns green." },
+              { title: "Unauthorized DHCP Servers", details: "In DHCP Manager, unauthorized servers appear with a red down-arrow icon. They cannot assign IP addresses until authorized by a domain administrator." },
+            ],
+          },
+        },
       ],
     },
     {
@@ -741,6 +803,75 @@ export const learningOutcome1 = {
               { title: "telnet", details: "Tests specific port connectivity to a remote host. Example: telnet 50.0.0.1 53 tests if DNS port 53 is accessible." },
               { title: "route print", details: "Displays the IP routing table, showing how network traffic is routed through the system." },
               { title: "netstat -ano", details: "Displays all active network connections and the listening ports with their process IDs." },
+            ],
+          },
+        },
+        {
+          id: "1-7-4",
+          number: "1.7.4",
+          title: "DHCP and DNS Relationship",
+          content: {
+            intro: "DHCP and DNS work together to provide network connectivity. Understanding how they interact is critical for troubleshooting and network design.",
+            subsections: [
+              { title: "The Big Picture", details: "SERVER (50.0.0.1) runs both DHCP and DNS. DHCP gives the client its IP configuration. DNS allows the client to resolve names. Both services are essential for a functioning network." },
+              { title: "DHCP Role", details: "DHCP provides the client with: IP address, subnet mask, default gateway, and DNS server address. Without DHCP, the client would need manual configuration of all these parameters." },
+              { title: "DNS Role", details: "DNS allows the client to resolve domain names to IP addresses. Without DNS, the client could only communicate using IP addresses directly (e.g., ping 50.0.0.1 but not ping server01.local)." },
+              { title: "Why DNS is Critical for Active Directory", details: "Active Directory depends heavily on DNS. If DNS is incorrectly configured, domain joining can fail. That's why servers are configured with DNS pointing to the domain controller (e.g., DNS = 50.0.0.1)." },
+              { title: "Troubleshooting DNS Issues", details: "If ping 50.0.0.1 works but ping server01.local fails, it's a DNS problem. Check: nslookup server01.local, verify DNS server address in ipconfig /all, check DNS zone records." },
+              { title: "DHCP DNS Options", details: "DHCP can automatically configure the client's DNS server address. When a client gets an IP via DHCP, it also receives the DNS server address (option 006 in DHCP). This ensures all clients use the correct DNS server." },
+            ],
+          },
+        },
+        {
+          id: "1-7-5",
+          number: "1.7.5",
+          title: "Day 2 Practical Checklist",
+          content: {
+            intro: "By the end of Day 2, you should be able to independently perform all of the following tasks.",
+            subsections: [
+              {
+                title: "Server Roles",
+                content: [
+                  "Understand the difference between roles and features",
+                  "Install DNS Server role via Server Manager",
+                  "Install DHCP Server role via Server Manager",
+                  "Verify role installation",
+                ]
+              },
+              {
+                title: "DHCP",
+                content: [
+                  "Understand the DORA process (Discover, Offer, Request, ACK)",
+                  "Create a DHCP scope with IP range and subnet mask",
+                  "Configure DHCP exclusions",
+                  "Create DHCP reservations based on MAC address",
+                  "Understand lease lifecycle (renewal, rebinding, expiration)",
+                  "Authorize DHCP server in Active Directory",
+                  "Test DHCP: ipconfig /release and ipconfig /renew on client",
+                  "Verify client receives correct IP, gateway, and DNS",
+                ]
+              },
+              {
+                title: "DNS",
+                content: [
+                  "Understand DNS purpose and name resolution",
+                  "Understand forward vs reverse lookup",
+                  "Create Forward Lookup Zones",
+                  "Create DNS records (A, CNAME, MX)",
+                  "Understand DNS zones (primary, secondary, stub)",
+                  "Test DNS: nslookup from client",
+                  "Understand why AD depends on DNS",
+                ]
+              },
+              {
+                title: "Troubleshooting",
+                content: [
+                  "Client cannot get an IP → check DHCP server, scope, network adapter",
+                  "Client has IP but can't resolve names → check DNS (nslookup)",
+                  "Server can ping client but client can't ping server → check firewall",
+                  "Domain join fails → check DNS first (client DNS must point to DC)",
+                ]
+              },
             ],
           },
         },
