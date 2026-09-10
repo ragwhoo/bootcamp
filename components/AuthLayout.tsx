@@ -30,17 +30,6 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
           </div>
         </div>
       </div>
-
-      <footer className="border-border text-muted-foreground flex flex-col items-center justify-between gap-2 border-t px-6 py-4 text-xs sm:flex-row">
-        <span>
-          © 2026 L&D Bootcamp. All rights reserved.
-        </span>
-        <div className="flex items-center gap-4">
-          <a href="#" className="hover:text-foreground transition-colors">Privacy</a>
-          <a href="#" className="hover:text-foreground transition-colors">Terms</a>
-          <a href="#" className="hover:text-foreground transition-colors">Support</a>
-        </div>
-      </footer>
     </div>
   );
 }
