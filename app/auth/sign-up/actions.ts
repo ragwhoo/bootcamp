@@ -13,6 +13,10 @@ export async function signUpWithEmail(
     return { error: 'Email address must be provided.' };
   }
 
+  if (!email.endsWith('@ptp.cloud')) {
+    return { error: 'Only @ptp.cloud email addresses are allowed.' };
+  }
+
   const { error } = await auth.signUp.email({
     email,
     name: formData.get('name') as string,

@@ -6,6 +6,6 @@ export default auth.middleware({
 
 export const config = {
   matcher: [
-    '/dashboard/:path*',
+    '/((?!auth|_next|api/auth|favicon.ico|robots.txt).*)',
   ],
 };
