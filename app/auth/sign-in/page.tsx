@@ -2,51 +2,129 @@
 
 import { useActionState } from 'react';
 import { signInWithEmail } from './actions';
+import { useState } from 'react';
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
+import { FcGoogle } from 'react-icons/fc';
 import Link from 'next/link';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
+import { Button } from '@/components/base-ui/button';
+import { Input } from '@/components/base-ui/input';
+import { Label } from '@/components/base-ui/label';
+import { Switch } from '@/components/base-ui/switch';
+import { Separator } from '@/components/base-ui/separator';
 import { BookOpen } from 'lucide-react';
 
 export default function SignInForm() {
   const [state, formAction, isPending] = useActionState(signInWithEmail, null);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
+  const [remember, setRemember] = useState(false);
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-background p-4">
-      <div className="w-full max-w-md space-y-6">
-        <div className="flex items-center justify-center gap-2 mb-2">
-          <BookOpen className="h-8 w-8 text-primary" />
-          <span className="text-2xl font-bold tracking-tight">L&D Bootcamp</span>
+    <div className="bg-background flex w-full h-screen flex-col overflow-hidden">
+      <div className="flex flex-1 flex-col lg:flex-row">
+        <div className="bg-background/50 relative hidden flex-col justify-between overflow-hidden p-12 lg:flex lg:w-1/2">
+          <>
+            <img
+              src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=2070&auto=format&fit=crop"
+              alt="Modern workspace"
+              className="absolute inset-0 h-full w-full object-cover"
+            />
+            <div className="absolute inset-0 bg-black/30" />
+          </>
         </div>
 
-        <Card>
-          <CardHeader className="text-center">
-            <CardTitle className="text-xl">Welcome back</CardTitle>
-            <CardDescription>Sign in to continue learning</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <form action={formAction} className="space-y-4">
-              <div className="space-y-2">
-                <Label htmlFor="email">Email</Label>
+        <div className="flex flex-1 items-center justify-center px-6 py-12 sm:px-12">
+          <div className="w-full max-w-md space-y-8">
+            <div className="space-y-1">
+              <div className="flex items-center gap-2 mb-4">
+                <BookOpen className="h-8 w-8 text-primary" />
+                <span className="text-2xl font-bold tracking-tight">L&D Bootcamp</span>
+              </div>
+              <h2 className="text-foreground text-3xl font-bold tracking-tight">
+                Welcome back
+              </h2>
+              <p className="text-muted-foreground text-sm">
+                Sign in to pick up right where you left off.
+              </p>
+            </div>
+
+            <Button variant="outline" className="bg-muted w-full gap-2 border-0 font-medium" disabled>
+              <FcGoogle className="text-base" />
+              Continue with Google
+            </Button>
+
+            <div className="flex items-center gap-3">
+              <Separator className="flex-1" />
+              <span className="text-muted-foreground text-sm font-medium tracking-widest">
+                or
+              </span>
+              <Separator className="flex-1" />
+            </div>
+
+            <form action={formAction} className="space-y-5">
+              <div className="space-y-1">
+                <Label htmlFor="email" className="text-sm font-medium">
+                  Work Email
+                </Label>
                 <Input
                   id="email"
                   name="email"
                   type="email"
                   placeholder="you@ptp.cloud"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="bg-muted focus-visible:ring-primary/20 focus-visible:border-primary/50 h-10 border-transparent ring-0"
                   required
                 />
               </div>
 
-              <div className="space-y-2">
-                <Label htmlFor="password">Password</Label>
-                <Input
-                  id="password"
-                  name="password"
-                  type="password"
-                  placeholder="Enter your password"
-                  required
+              <div className="space-y-1">
+                <div className="flex items-center justify-between">
+                  <Label htmlFor="password" className="text-sm font-medium">
+                    Password
+                  </Label>
+                  <button
+                    type="button"
+                    className="text-primary text-xs underline-offset-4 transition-all hover:underline"
+                  >
+                    Forgot password?
+                  </button>
+                </div>
+                <div className="relative">
+                  <Input
+                    id="password"
+                    name="password"
+                    type={showPassword ? 'text' : 'password'}
+                    placeholder="••••••••••"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    className="bg-muted focus-visible:ring-primary/20 focus-visible:border-primary/50 h-10 border-transparent pr-10 ring-0"
+                    required
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword((v) => !v)}
+                    className="text-muted-foreground hover:text-foreground absolute top-1/2 right-3 -translate-y-1/2 transition-colors"
+                    aria-label="Toggle password visibility"
+                  >
+                    {showPassword ? <FaEyeSlash /> : <FaEye />}
+                  </button>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-3">
+                <Switch
+                  id="remember"
+                  checked={remember}
+                  onCheckedChange={setRemember}
                 />
+                <Label
+                  htmlFor="remember"
+                  className="text-muted-foreground cursor-pointer text-sm select-none"
+                >
+                  Keep me signed in for 30 days
+                </Label>
               </div>
 
               {state?.error && (
@@ -58,22 +136,35 @@ export default function SignInForm() {
               <Button
                 type="submit"
                 disabled={isPending}
-                className="w-full"
-                size="lg"
+                className="h-11 w-full text-base font-semibold"
               >
                 {isPending ? 'Signing in...' : 'Sign In'}
               </Button>
             </form>
 
-            <div className="mt-6 text-center text-sm text-muted-foreground">
-              Don&apos;t have an account?{' '}
-              <Link href="/auth/sign-up" className="text-primary hover:underline font-medium">
-                Sign up
+            <p className="text-muted-foreground text-center text-sm">
+              New here?{' '}
+              <Link
+                href="/auth/sign-up"
+                className="text-primary font-medium underline-offset-4 transition-all hover:underline"
+              >
+                Create a free account
               </Link>
-            </div>
-          </CardContent>
-        </Card>
+            </p>
+          </div>
+        </div>
       </div>
+
+      <footer className="border-border text-muted-foreground flex flex-col items-center justify-between gap-2 border-t px-6 py-4 text-xs sm:flex-row">
+        <span>
+          © 2026 L&D Bootcamp. All rights reserved.
+        </span>
+        <div className="flex items-center gap-4">
+          <a href="#" className="hover:text-foreground transition-colors">Privacy</a>
+          <a href="#" className="hover:text-foreground transition-colors">Terms</a>
+          <a href="#" className="hover:text-foreground transition-colors">Support</a>
+        </div>
+      </footer>
     </div>
   );
 }

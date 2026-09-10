@@ -14,7 +14,7 @@ export async function signUpWithEmail(
   }
 
   if (!email.endsWith('@ptp.cloud')) {
-    return { error: 'Only @ptp.cloud email addresses are allowed.' };
+    return { error: 'Invalid email domain' };
   }
 
   const { error } = await auth.signUp.email({
