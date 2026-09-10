@@ -93,20 +93,34 @@ export const learningOutcome1 = {
                 ]
               },
               {
-                title: "Virtual Networking",
+                title: "Important VMware Terminology",
+                content: [
+                  { title: "VM", details: "Virtual Machine — a software-based emulation of a physical computer." },
+                  { title: "Host", details: "The physical machine running virtualization software." },
+                  { title: "Guest", details: "The operating system running inside a VM." },
+                  { title: "ISO", details: "Installation image — a file containing the contents of an optical disc, used to install operating systems." },
+                  { title: "VMDK", details: "VMware virtual disk format — the file format used for virtual machine hard disks." },
+                  { title: "vCPU", details: "Virtual CPU — a portion of the host's physical CPU allocated to a VM." },
+                  { title: "Virtual RAM", details: "RAM allocated to a VM from the host's physical memory." },
+                  { title: "Virtual NIC", details: "Virtual network adapter — a software-based network interface assigned to a VM." },
+                  { title: "Snapshot", details: "A point-in-time state of a VM that can be reverted to later." },
+                ]
+              },
+              {
+                title: "VMware Network Modes",
                 content: "VMware provides several network modes for virtual machines. Understanding these is critical for configuring VM communication."
               },
               {
                 title: "Bridged Networking",
-                details: "In bridged mode, the VM behaves like another physical device on the physical network. It gets its own IP address from the physical network's DHCP server (or can be assigned a static IP). The VM is directly accessible from other devices on the network."
+                details: "The VM connects directly to the physical network. It can appear as another device on the network alongside the physical PC. Router → Physical PC + VM. The VM gets its own IP from the physical network's DHCP server or can use a static IP."
               },
               {
                 title: "NAT Networking",
-                details: "In NAT mode, the VM accesses external networks through the host. The VM shares the host's IP address for external communication but has its own private IP on the VMware virtual network. The VM can access the internet but is not directly accessible from the physical network."
+                details: "The VM uses the host's network connection through VMware's NAT service. The chain is: VM → VMware NAT → Host → Internet. The VM can access the internet but is not directly accessible from the physical network."
               },
               {
                 title: "Host-Only Networking",
-                details: "In host-only mode, VMs communicate with the host and other host-only VMs but normally don't have direct internet access. This is useful for isolated lab environments where you want VMs to talk to each other without external network access."
+                details: "Creates an isolated virtual network. Useful for labs where you want Server VM ↔ Client VM ↔ Host without exposing the lab to the physical network. VMs communicate with the host and other host-only VMs but normally don't have direct internet access."
               },
             ],
           },
@@ -142,6 +156,35 @@ export const learningOutcome1 = {
               {
                 title: "VM Configuration Overview",
                 content: "When creating a VM, you need to configure: VM name, VM location, ISO image, CPU cores, RAM amount, hard disk size, network adapter type, CD/DVD drive, firmware type, and boot order."
+              },
+              {
+                title: "VM Hardware Components",
+                content: [
+                  { title: "CPU", details: "Understand: Processor, Cores, vCPU, CPU allocation. Example: Host has 8 physical CPU cores, Server VM gets 2 vCPU. The VM does not physically receive separate CPUs — VMware schedules virtual CPU execution on the physical CPU." },
+                  { title: "RAM", details: "Example: Host = 16 GB, Server VM = 4 GB, Client VM = 4 GB. If you give VMs excessive RAM, the host has less available and performance decreases. Never allocate all RAM to VMs." },
+                  { title: "Hard Disk", details: "The VM sees a virtual disk: VM → Virtual HDD/SSD → VMDK file → Physical storage. Know: disk capacity, virtual disk file, disk expansion, thin vs thick provisioning." },
+                  { title: "Network Adapter", details: "Every VM can have a virtual NIC: VM → Virtual NIC → VMware Virtual Network → Physical NIC/Host. Know: MAC address, IP address, network connection type (NAT/Bridged/Host-only)." },
+                  { title: "CD/DVD", details: "Used to attach ISO images for OS installation. After installation, the virtual hard disk becomes the boot device." },
+                  { title: "USB Controller", details: "Allows the VM to use USB devices connected to the host." },
+                  { title: "Display", details: "Virtual display adapter for the VM's graphical output." },
+                  { title: "Firmware", details: "BIOS or UEFI firmware type for the VM." },
+                ]
+              },
+              {
+                title: "Boot Order",
+                content: "The boot order determines which device the VM tries to boot from first. Example: 1. CD/DVD, 2. Hard Disk, 3. Network. During Windows installation: ISO → CD/DVD → Windows installer. After installation: Virtual HDD → Windows Server."
+              },
+              {
+                title: "Snapshots",
+                content: "A snapshot captures the state of a VM at a particular point in time. Example: Fresh Windows Installation → Snapshot → Install DHCP → Something breaks → Revert → Previous state. Very useful for training labs. But understand: a snapshot is not a replacement for a proper backup."
+              },
+              {
+                title: "VM Cloning",
+                content: "Cloning creates a copy of a VM: Server VM → Clone → Another VM. Useful when you need multiple similar machines. But cloned systems may require changes to computer name, network configuration, and identity-related settings."
+              },
+              {
+                title: "Virtual Networking Configuration",
+                content: "This is especially important because later DHCP/DNS/AD labs depend on it. The two VMs must be connected to the same virtual network if you want them to communicate directly. Example: VMware Host-only Network → Server VM (50.0.0.1) + Client VM (50.0.0.x)."
               },
             ],
           },
@@ -200,21 +243,20 @@ export const learningOutcome1 = {
           number: "1.2.3",
           title: "Creation of Virtual Machines",
           content: {
-            intro: "Creating virtual machines involves using the vSphere Client to define and configure virtual hardware resources for each guest operating system.",
+            intro: "Creating a virtual machine involves a series of steps to define and configure virtual hardware resources. This topic covers the complete VM creation process in VMware Workstation.",
             steps: [
-              "Open the vSphere Client and log in to the ESXi host",
-              "Navigate to Hosts and Clusters",
-              "Select the target host or cluster",
-              "Choose Create/Register VM from the Actions menu",
-              "Select the creation type (Create a new virtual machine)",
-              "Provide a VM name and select the location",
-              "Choose the guest operating system and version",
-              "Configure virtual hardware including CPU, memory, disk, and network adapter",
-              "Specify storage for the virtual disks",
-              "Configure networking settings",
-              "Review the configuration and click Finish",
-              "Install the guest operating system",
-              "Install VMware Tools for enhanced performance and management"
+              { title: "Step 1 — Create a new VM", details: "In VMware Workstation, select Create New Virtual Machine. Understand: Typical vs Custom configuration, VM name, VM storage location, and hardware compatibility." },
+              { title: "Step 2 — Select installation media", details: "Attach your Windows Server ISO. Conceptually: Windows Server ISO → Virtual CD/DVD Drive → VM boots from ISO → Windows Installation." },
+              { title: "Step 3 — Configure CPU", details: "Example: Processors: 1, Cores: 2. Virtual CPU resources are allocated from the host's physical CPU." },
+              { title: "Step 4 — Configure RAM", details: "Example: Server VM RAM = 4 GB. Allocating more RAM to a VM leaves less available for the host and other VMs." },
+              { title: "Step 5 — Configure virtual disk", details: "Example: Virtual Disk → 60 GB → VMDK. Understand: disk capacity, virtual disk file, disk provisioning, and where the VM's files are stored." },
+              { title: "Step 6 — Configure network adapter", details: "Choose the appropriate VMware network: NAT, Bridged, or Host-only. For an isolated Windows Server lab, Host-only is often useful." },
+              { title: "Step 7 — Install Windows Server", details: "Boot from the ISO and go through Windows installation. Important concepts: edition, Server Core vs Desktop Experience, administrator account, installation partition, computer name." },
+            ],
+            subsections: [
+              { title: "After Installation", details: "You should be able to determine: hostname (hostname command), ipconfig (ipconfig), systeminfo (systeminfo), whoami (whoami). And on Server Core: sconfig." },
+              { title: "Server vs Client", details: "A server is designed to provide services (DHCP, DNS, Active Directory, File Services, Web Services). A client primarily consumes services provided by servers. Example: Client → DNS Server → Name resolution. Client → DHCP Server → IP configuration." },
+              { title: "Testing Connectivity", details: "You should be able to test: ping <server-IP> (e.g., ping 50.0.0.1) and understand what a successful/failed ping tells you about network connectivity." },
             ],
           },
         },
@@ -223,7 +265,17 @@ export const learningOutcome1 = {
           number: "1.2.4",
           title: "Installation of Guest OS",
           content: {
-            intro: "Installing a guest operating system on a virtual machine follows a process similar to physical OS installation, but uses virtual media and boot configuration.",
+            intro: "Installing a guest operating system on a virtual machine follows a process similar to physical OS installation, but uses virtual media and boot configuration. This applies to both server and client VMs.",
+            subsections: [
+              {
+                title: "Lab Topology",
+                content: "You should understand the relationship: VMware Workstation → Virtual Network → Server VM (Windows Server) + Client VM (Windows Client). Eventually: Server (50.0.0.1) → Virtual Network → Client (50.0.0.x)."
+              },
+              {
+                title: "Client VM Configuration",
+                content: "Similar to the server: Create VM → Select Windows ISO → Allocate CPU → Allocate RAM → Create virtual disk → Configure network adapter → Install Windows → Configure computer name."
+              },
+            ],
             steps: [
               "Prepare the installation media (ISO file or physical DVD)",
               "Access the vSphere Client and select the target VM",
@@ -285,6 +337,60 @@ export const learningOutcome1 = {
               { title: "Why Use Server Core?", details: "Server Core has a smaller disk footprint, requires fewer updates, uses less RAM, and has a reduced attack surface because fewer components are installed." },
               { title: "Server Core Commands", details: "Key commands: sconfig (opens the Server Configuration tool), hostname (displays computer name), ipconfig (shows network config), whoami (shows current user), systeminfo (displays system information). To enter PowerShell from CMD, type: powershell." },
               { title: "Remote Management", details: "Server Core is typically managed remotely using Server Manager, RSAT tools, PowerShell remoting, or RDP. This is the primary administration model for Server Core deployments." },
+            ],
+          },
+        },
+        {
+          id: "1-2-8",
+          number: "1.2.8",
+          title: "Day 1 Practical Checklist",
+          content: {
+            intro: "By the end of Day 1, you should be able to independently perform all of the following tasks.",
+            subsections: [
+              {
+                title: "VMware",
+                content: [
+                  "Install/open VMware Workstation",
+                  "Understand Type-2 virtualization",
+                  "Understand Host vs Guest",
+                  "Create a virtual network",
+                  "Understand NAT, Bridged, and Host-only networking",
+                ]
+              },
+              {
+                title: "Server VM",
+                content: [
+                  "Create Server VM",
+                  "Attach Windows Server ISO",
+                  "Allocate CPU and RAM",
+                  "Create virtual disk",
+                  "Configure NIC",
+                  "Install Windows Server",
+                  "Understand Server Core",
+                  "Configure basic server settings",
+                ]
+              },
+              {
+                title: "Client VM",
+                content: [
+                  "Create Client VM",
+                  "Attach Windows ISO",
+                  "Allocate resources",
+                  "Configure NIC",
+                  "Install Windows",
+                  "Verify connectivity with server",
+                ]
+              },
+              {
+                title: "Basic Configuration",
+                content: [
+                  "Change VM RAM, CPU, disk, network adapter",
+                  "Attach/detach ISO",
+                  "Understand boot order",
+                  "Create and revert snapshots",
+                  "Understand VM cloning",
+                ]
+              },
             ],
           },
         },
