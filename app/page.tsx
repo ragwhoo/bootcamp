@@ -7,7 +7,13 @@ import { auth } from "@/lib/auth/server";
 export const dynamic = 'force-dynamic';
 
 export default async function Home() {
-  const { data: session } = await auth.getSession();
+  let session = null;
+  try {
+    const result = await auth.getSession();
+    session = result.data;
+  } catch {
+    // Auth service unavailable — render without session
+  }
 
   return (
     <div>
