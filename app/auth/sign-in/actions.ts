@@ -1,7 +1,6 @@
 'use server';
 
 import { auth } from '@/lib/auth/server';
-import { redirect } from 'next/navigation';
 import {
   checkRateLimit,
   checkAccountLockout,
@@ -10,7 +9,7 @@ import {
 } from '@/lib/auth/security';
 
 export async function signInWithEmail(
-  _prevState: { error: string } | null,
+  _prevState: { error: string; success?: boolean } | null,
   formData: FormData
 ) {
   const email = formData.get('email') as string;
@@ -41,5 +40,5 @@ export async function signInWithEmail(
   }
 
   clearFailedAttempts(email);
-  redirect('/');
+  return { error: '', success: true };
 }

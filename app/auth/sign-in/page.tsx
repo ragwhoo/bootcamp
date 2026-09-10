@@ -1,8 +1,7 @@
 'use client';
 
-import { useActionState } from 'react';
-import { signInWithEmail } from './actions';
 import { useState } from 'react';
+import { authClient } from '@/lib/auth/client';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { FcGoogle } from 'react-icons/fc';
 import { Button } from '@/components/base-ui/button';
@@ -13,11 +12,36 @@ import { Separator } from '@/components/base-ui/separator';
 import AuthLayout from '@/components/AuthLayout';
 
 export default function SignInForm() {
-  const [state, formAction, isPending] = useActionState(signInWithEmail, null);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [remember, setRemember] = useState(false);
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setError('');
+    setLoading(true);
+
+    try {
+      const { error: signInError } = await authClient.signIn.email({
+        email,
+        password,
+      });
+
+      if (signInError) {
+        setError('Invalid email or password');
+        setLoading(false);
+        return;
+      }
+
+      window.location.href = '/';
+    } catch {
+      setError('Something went wrong. Please try again.');
+      setLoading(false);
+    }
+  };
 
   return (
     <AuthLayout>
@@ -41,7 +65,7 @@ export default function SignInForm() {
         <Separator className="flex-1" />
       </div>
 
-      <form action={formAction} className="space-y-5 mt-8">
+      <form onSubmit={handleSubmit} className="space-y-5 mt-8">
         <div className="space-y-1">
           <Label htmlFor="email" className="text-sm font-medium">
             Work Email
@@ -106,18 +130,18 @@ export default function SignInForm() {
           </Label>
         </div>
 
-        {state?.error && (
+        {error && (
           <div className="rounded-lg bg-destructive/10 px-4 py-3 text-sm text-destructive">
-            {state.error}
+            {error}
           </div>
         )}
 
         <Button
           type="submit"
-          disabled={isPending}
+          disabled={loading}
           className="h-11 w-full text-base font-semibold"
         >
-          {isPending ? 'Signing in...' : 'Sign In'}
+          {loading ? 'Signing in...' : 'Sign In'}
         </Button>
       </form>
 
