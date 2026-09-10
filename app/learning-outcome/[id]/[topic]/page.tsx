@@ -97,24 +97,28 @@ export default async function TopicPage({ params }: { params: Promise<{ id: stri
         elements.push(
           <div key={key++} className="mb-6 rounded-lg border border-white/10 bg-white/5 p-4">
             <h3 className="mb-2 text-lg font-semibold text-white">{sub.title}</h3>
-            {Array.isArray(sub.content) ? (
-              <ul className="space-y-2">
-                {sub.content.map((item: any, i: number) => (
-                  typeof item === "string" ? (
-                    <li key={i} className="flex items-start gap-2 text-gray-400">
-                      <span>{item}</span>
-                    </li>
-                  ) : (
-                    <li key={i} className="flex items-start gap-2 text-gray-400">
-                      <span className="font-medium text-white">{item.title}</span>
-                      <span> - {item.details}</span>
-                    </li>
-                  )
-                ))}
-              </ul>
-            ) : (
-              <p className="text-gray-400">{sub.content}</p>
-            )}
+            {sub.content ? (
+              Array.isArray(sub.content) ? (
+                <ul className="space-y-2">
+                  {sub.content.map((item: any, i: number) => (
+                    typeof item === "string" ? (
+                      <li key={i} className="flex items-start gap-2 text-gray-400">
+                        <span>{item}</span>
+                      </li>
+                    ) : (
+                      <li key={i} className="flex items-start gap-2 text-gray-400">
+                        <span className="font-medium text-white">{item.title}</span>
+                        <span> - {item.details}</span>
+                      </li>
+                    )
+                  ))}
+                </ul>
+              ) : (
+                <p className="text-gray-400">{sub.content}</p>
+              )
+            ) : sub.details ? (
+              <p className="text-gray-400">{sub.details}</p>
+            ) : null}
           </div>
         );
       }
