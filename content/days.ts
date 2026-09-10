@@ -7,23 +7,43 @@ export const days = [
     topics: [
       {
         title: "VMware Workstation 17",
-        description: "Lab virtualization environment.",
-        topicId: null,
+        description: "Lab virtualization environment. Type-2 hypervisor, host vs guest, network modes.",
+        topicId: "1-1-2",
       },
       {
         title: "Creating the Server VM",
-        description: null,
-        topicId: null,
+        description: "7-step VM creation process in VMware Workstation.",
+        topicId: "1-2-3",
       },
       {
         title: "Creating the Client VM",
-        description: null,
-        topicId: null,
+        description: "Client VM setup and server vs client comparison.",
+        topicId: "1-2-4",
       },
       {
         title: "Basic Virtual Machine Configuration",
-        description: null,
-        topicId: null,
+        description: "VM hardware, boot order, snapshots, cloning, networking config.",
+        topicId: "1-1-3",
+      },
+      {
+        title: "Basic Network Configuration",
+        description: "IP address, subnet mask, gateway, DNS, DHCP vs static.",
+        topicId: "1-2-5",
+      },
+      {
+        title: "Basic Windows Networking Commands",
+        description: "ipconfig, ping, nslookup, route print, netstat.",
+        topicId: "1-2-6",
+      },
+      {
+        title: "Server Core Fundamentals",
+        description: "Minimal Windows Server installation, commands, remote management.",
+        topicId: "1-2-7",
+      },
+      {
+        title: "Day 1 Practical Checklist",
+        description: "Complete checklist of everything you should be able to do by end of Day 1.",
+        topicId: "1-2-8",
       },
     ],
   },
