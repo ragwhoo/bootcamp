@@ -2,6 +2,14 @@
 
 import { useState } from "react";
 import { portCategories, portMemoryAids, portTroubleshootingSteps, portCommands } from "@/content/ports";
+import * as LucideIcons from "lucide-react";
+
+function IconByName({ name, className }: { name: string; className?: string }) {
+  const Icons = LucideIcons as unknown as Record<string, React.ComponentType<{ className?: string }>>;
+  const Icon = Icons[name];
+  if (!Icon) return null;
+  return <Icon className={className} />;
+}
 
 export default function PortsPage() {
   const [search, setSearch] = useState("");
@@ -56,11 +64,12 @@ export default function PortsPage() {
           <button
             key={cat.id}
             onClick={() => setActiveCategory(activeCategory === cat.id ? null : cat.id)}
-            className={`rounded-lg px-4 py-2 text-sm transition-colors ${
+            className={`flex items-center gap-2 rounded-lg px-4 py-2 text-sm transition-colors ${
               activeCategory === cat.id ? "bg-white/10 text-white" : "text-gray-400 hover:bg-white/5"
             }`}
           >
-            {cat.icon} {cat.title}
+            <IconByName name={cat.icon} className="h-4 w-4" />
+            {cat.title}
           </button>
         ))}
       </div>
@@ -68,8 +77,9 @@ export default function PortsPage() {
       <div className="space-y-8">
         {filteredCategories.map((cat) => (
           <div key={cat.id} className="rounded-xl border border-white/10 bg-white/5 p-6 backdrop-blur-sm">
-            <h2 className="mb-4 text-xl font-bold text-white">
-              {cat.icon} {cat.title}
+            <h2 className="mb-4 flex items-center gap-2 text-xl font-bold text-white">
+              <IconByName name={cat.icon} className="h-5 w-5" />
+              {cat.title}
             </h2>
             <div className="overflow-x-auto">
               <table className="w-full text-left text-sm">
@@ -104,7 +114,10 @@ export default function PortsPage() {
       )}
 
       <div className="mt-8 rounded-xl border border-white/10 bg-white/5 p-6 backdrop-blur-sm">
-        <h2 className="mb-4 text-xl font-bold text-white">Memory Aids</h2>
+        <h2 className="mb-4 flex items-center gap-2 text-xl font-bold text-white">
+          <LucideIcons.Bookmark className="h-5 w-5" />
+          Memory Aids
+        </h2>
         <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
           {portMemoryAids.map((aid) => (
             <div key={aid.port} className="flex items-center gap-2 rounded-lg bg-white/5 px-4 py-2">
@@ -117,7 +130,10 @@ export default function PortsPage() {
       </div>
 
       <div className="mt-8 rounded-xl border border-white/10 bg-white/5 p-6 backdrop-blur-sm">
-        <h2 className="mb-4 text-xl font-bold text-white">Troubleshooting Flow</h2>
+        <h2 className="mb-4 flex items-center gap-2 text-xl font-bold text-white">
+          <LucideIcons.HelpCircle className="h-5 w-5" />
+          Troubleshooting Flow
+        </h2>
         <div className="flex flex-col gap-2">
           {portTroubleshootingSteps.map((step, i) => (
             <div key={i} className="flex items-center gap-3">
@@ -131,7 +147,10 @@ export default function PortsPage() {
       </div>
 
       <div className="mt-8 rounded-xl border border-white/10 bg-white/5 p-6 backdrop-blur-sm">
-        <h2 className="mb-4 text-xl font-bold text-white">Useful Commands</h2>
+        <h2 className="mb-4 flex items-center gap-2 text-xl font-bold text-white">
+          <LucideIcons.Terminal className="h-5 w-5" />
+          Useful Commands
+        </h2>
         <div className="space-y-3">
           {portCommands.map((cmd) => (
             <div key={cmd.command} className="rounded-lg bg-white/5 p-3">

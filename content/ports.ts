@@ -16,7 +16,7 @@ export const portCategories: PortCategory[] = [
   {
     id: "must-know",
     title: "Must Know Ports",
-    icon: "⭐",
+    icon: "Star",
     ports: [
       { port: "20", protocol: "TCP", service: "FTP Data", description: "FTP data transfer" },
       { port: "21", protocol: "TCP", service: "FTP", description: "FTP control" },
@@ -41,7 +41,7 @@ export const portCategories: PortCategory[] = [
   {
     id: "active-directory",
     title: "Active Directory Ports",
-    icon: "🏢",
+    icon: "Building2",
     ports: [
       { port: "53", protocol: "TCP/UDP", service: "DNS", description: "Domain name resolution" },
       { port: "88", protocol: "TCP/UDP", service: "Kerberos", description: "Authentication protocol" },
@@ -62,7 +62,7 @@ export const portCategories: PortCategory[] = [
   {
     id: "web-email",
     title: "Web & Email Ports",
-    icon: "🌍",
+    icon: "Globe",
     ports: [
       { port: "80", protocol: "TCP", service: "HTTP", description: "Web traffic" },
       { port: "443", protocol: "TCP", service: "HTTPS", description: "Secure web traffic" },
@@ -78,7 +78,7 @@ export const portCategories: PortCategory[] = [
   {
     id: "remote-admin",
     title: "Remote Administration",
-    icon: "🖥️",
+    icon: "Monitor",
     ports: [
       { port: "22", protocol: "TCP", service: "SSH", description: "Secure remote administration" },
       { port: "23", protocol: "TCP", service: "Telnet", description: "Remote terminal; insecure" },
@@ -90,7 +90,7 @@ export const portCategories: PortCategory[] = [
   {
     id: "network-mgmt",
     title: "Network Management",
-    icon: "📡",
+    icon: "Radio",
     ports: [
       { port: "161", protocol: "UDP", service: "SNMP", description: "Network management/monitoring" },
       { port: "162", protocol: "UDP", service: "SNMP Trap", description: "SNMP notifications" },
@@ -101,7 +101,7 @@ export const portCategories: PortCategory[] = [
   {
     id: "file-directory",
     title: "File & Directory Services",
-    icon: "📂",
+    icon: "FolderOpen",
     ports: [
       { port: "389", protocol: "TCP/UDP", service: "LDAP", description: "Directory services" },
       { port: "445", protocol: "TCP", service: "SMB", description: "Windows file/printer sharing" },

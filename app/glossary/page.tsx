@@ -2,6 +2,14 @@
 
 import { useState } from "react";
 import { glossaryCategories } from "@/content/glossary";
+import * as LucideIcons from "lucide-react";
+
+function IconByName({ name, className }: { name: string; className?: string }) {
+  const Icons = LucideIcons as unknown as Record<string, React.ComponentType<{ className?: string }>>;
+  const Icon = Icons[name];
+  if (!Icon) return null;
+  return <Icon className={className} />;
+}
 
 export default function GlossaryPage() {
   const [search, setSearch] = useState("");
@@ -58,11 +66,12 @@ export default function GlossaryPage() {
           <button
             key={cat.id}
             onClick={() => setActiveCategory(activeCategory === cat.id ? null : cat.id)}
-            className={`rounded-lg px-4 py-2 text-sm transition-colors ${
+            className={`flex items-center gap-2 rounded-lg px-4 py-2 text-sm transition-colors ${
               activeCategory === cat.id ? "bg-white/10 text-white" : "text-gray-400 hover:bg-white/5"
             }`}
           >
-            {cat.icon} {cat.title}
+            <IconByName name={cat.icon} className="h-4 w-4" />
+            {cat.title}
           </button>
         ))}
       </div>
@@ -70,8 +79,9 @@ export default function GlossaryPage() {
       <div className="space-y-8">
         {filteredCategories.map((cat) => (
           <div key={cat.id} className="rounded-xl border border-white/10 bg-white/5 p-6 backdrop-blur-sm">
-            <h2 className="mb-4 text-xl font-bold text-white">
-              {cat.icon} {cat.title}
+            <h2 className="mb-4 flex items-center gap-2 text-xl font-bold text-white">
+              <IconByName name={cat.icon} className="h-5 w-5" />
+              {cat.title}
             </h2>
             <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
               {cat.entries.map((entry) => (

@@ -15,7 +15,7 @@ export const glossaryCategories: GlossaryCategory[] = [
   {
     id: "core",
     title: "Core Computer & Infrastructure Terms",
-    icon: "💻",
+    icon: "Monitor",
     entries: [
       { term: "Server", definition: "Computer/system that provides services or resources to other systems." },
       { term: "Client", definition: "System that consumes services/resources from a server." },
@@ -40,7 +40,7 @@ export const glossaryCategories: GlossaryCategory[] = [
   {
     id: "networking",
     title: "Networking Glossary",
-    icon: "🌐",
+    icon: "Globe",
     entries: [
       { term: "IP Address", definition: "Logical address used to identify a device/interface on an IP network." },
       { term: "IPv4", definition: "32-bit IP addressing system." },
@@ -75,7 +75,7 @@ export const glossaryCategories: GlossaryCategory[] = [
   {
     id: "windows-server",
     title: "Windows Server Glossary",
-    icon: "🧩",
+    icon: "Server",
     entries: [
       { term: "Server Role", definition: "Major service/function provided by Windows Server." },
       { term: "Server Feature", definition: "Supporting functionality that can be installed on Windows Server." },
@@ -101,7 +101,7 @@ export const glossaryCategories: GlossaryCategory[] = [
   {
     id: "active-directory",
     title: "Active Directory Glossary",
-    icon: "🏢",
+    icon: "Building2",
     entries: [
       { term: "AD", fullForm: "Active Directory", definition: "Microsoft directory service for Windows domain networks." },
       { term: "AD DS", fullForm: "Active Directory Domain Services", definition: "Core directory service that stores information about network objects." },
@@ -133,7 +133,7 @@ export const glossaryCategories: GlossaryCategory[] = [
   {
     id: "security",
     title: "Security Glossary",
-    icon: "🔐",
+    icon: "Shield",
     entries: [
       { term: "Authentication", definition: "Proving identity." },
       { term: "Authorization", definition: "Determining permissions." },
