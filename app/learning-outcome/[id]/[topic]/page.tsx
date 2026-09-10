@@ -100,10 +100,16 @@ export default async function TopicPage({ params }: { params: Promise<{ id: stri
             {Array.isArray(sub.content) ? (
               <ul className="space-y-2">
                 {sub.content.map((item: any, i: number) => (
-                  <li key={i} className="flex items-start gap-2 text-gray-400">
-                    <span className="font-medium text-white">{item.title}</span>
-                    <span> - {item.details}</span>
-                  </li>
+                  typeof item === "string" ? (
+                    <li key={i} className="flex items-start gap-2 text-gray-400">
+                      <span>{item}</span>
+                    </li>
+                  ) : (
+                    <li key={i} className="flex items-start gap-2 text-gray-400">
+                      <span className="font-medium text-white">{item.title}</span>
+                      <span> - {item.details}</span>
+                    </li>
+                  )
                 ))}
               </ul>
             ) : (
