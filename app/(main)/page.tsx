@@ -1,7 +1,7 @@
 import { DayCard } from "@/components/DayCard";
 import Hero from "@/components/Hero";
 import { days } from "@/content/days";
-import { BookOpen, Plug } from "lucide-react";
+import { BookOpen, Plug, FileText } from "lucide-react";
 import Link from "next/link";
 import { auth } from "@/lib/auth/server";
 
@@ -62,7 +62,7 @@ export default async function Home() {
             Quick reference materials for terminology and network services.
           </p>
 
-          <div className="grid gap-6 sm:grid-cols-2">
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
             <Link
               href="/glossary"
               className="border-border bg-card/50 hover:bg-card group block rounded-xl border p-6 backdrop-blur-sm transition-colors"
@@ -83,6 +83,30 @@ export default async function Home() {
               <h3 className="text-foreground mb-2 text-xl font-bold">Common Ports & Services</h3>
               <p className="text-muted-foreground">Essential port numbers and their associated services — must-know ports, Active Directory ports, web, email, and remote administration.</p>
             </Link>
+            <a
+              href="/Notes.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="border-border bg-card/50 hover:bg-card group block rounded-xl border p-6 backdrop-blur-sm transition-colors"
+            >
+              <div className="text-muted-foreground group-hover:text-foreground mb-3 transition-colors">
+                <FileText className="h-8 w-8" />
+              </div>
+              <h3 className="text-foreground mb-2 text-xl font-bold">Textbook</h3>
+              <p className="text-muted-foreground">Full Windows Server textbook — comprehensive reference for all bootcamp topics.</p>
+            </a>
+            <a
+              href="/organized.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="border-border bg-card/50 hover:bg-card group block rounded-xl border p-6 backdrop-blur-sm transition-colors"
+            >
+              <div className="text-muted-foreground group-hover:text-foreground mb-3 transition-colors">
+                <FileText className="h-8 w-8" />
+              </div>
+              <h3 className="text-foreground mb-2 text-xl font-bold">Class Notes</h3>
+              <p className="text-muted-foreground">Organized class notes — summarized topics and key points from each session.</p>
+            </a>
           </div>
         </div>
       </section>
