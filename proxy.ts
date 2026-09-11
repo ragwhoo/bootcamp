@@ -13,6 +13,6 @@ export default middleware;
 
 export const config = {
   matcher: [
-    '/((?!auth|_next|api/auth|favicon.ico|robots.txt|sitemap.xml).*)',
+    '/((?!auth|_next|api|favicon.ico|robots.txt|sitemap.xml).*)',
   ],
 };

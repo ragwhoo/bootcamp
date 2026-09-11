@@ -38,7 +38,13 @@ export default function SignInForm() {
 
       if (!res.ok || data.error) {
         console.error('[SignIn] API error:', res.status, data);
-        setError('Invalid email or password');
+        if (res.status === 503) {
+          setError('Authentication service is not configured. Please contact your administrator.');
+        } else if (res.status === 401 || res.status === 400) {
+          setError('Invalid email or password');
+        } else {
+          setError(`Authentication error (${res.status}). Please try again.`);
+        }
         setLoading(false);
         return;
       }

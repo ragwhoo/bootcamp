@@ -1,6 +1,8 @@
 import { auth } from '@/lib/auth/server';
 import { NextRequest } from 'next/server';
 
+export const runtime = 'nodejs';
+
 export async function GET(request: NextRequest, ctx: { params: Promise<{ path: string[] }> }) {
   const authInstance = auth();
   if (!authInstance) {
@@ -11,7 +13,7 @@ export async function GET(request: NextRequest, ctx: { params: Promise<{ path: s
   }
 
   const params = await ctx.params;
-  console.log(`[Auth API GET] ${params.path.join('/')}`);
+  console.log(`[Auth API GET] path=${params.path.join('/')}`);
 
   const { GET } = authInstance.handler();
   return GET(request, ctx);
@@ -27,15 +29,16 @@ export async function POST(request: NextRequest, ctx: { params: Promise<{ path: 
   }
 
   const params = await ctx.params;
-  console.log(`[Auth API POST] ${params.path.join('/')}`);
+  const subpath = params.path.join('/');
+  console.log(`[Auth API POST] path=${subpath}`);
 
   try {
     const { POST } = authInstance.handler();
     const response = await POST(request, ctx);
-    console.log(`[Auth API POST] Response status: ${response.status}`);
+    console.log(`[Auth API POST] path=${subpath} status=${response.status}`);
     return response;
   } catch (err) {
-    console.error(`[Auth API POST] Handler error:`, err);
+    console.error(`[Auth API POST] path=${subpath} error:`, err instanceof Error ? err.message : err);
     return new Response(JSON.stringify({ error: 'Internal error' }), { status: 500, headers: { 'Content-Type': 'application/json' } });
   }
 }
