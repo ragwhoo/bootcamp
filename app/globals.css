@@ -84,6 +84,14 @@ html::-webkit-scrollbar {
   display: none;
 }
 
+* {
+  scrollbar-width: none;
+}
+
+*::-webkit-scrollbar {
+  display: none;
+}
+
 #bg-gradient {
   position: fixed;
   inset: 0;
