@@ -11,13 +11,13 @@ export default function GlobalError({
     <html lang="en">
       <body className="bg-background text-foreground min-h-screen">
         <div className="flex min-h-screen flex-col items-center justify-center px-4 text-center">
-          <h1 className="mb-2 text-4xl font-bold">Something went wrong</h1>
-          <p className="mb-6 text-gray-400">
+          <h1 className="text-foreground mb-2 text-4xl font-bold">Something went wrong</h1>
+          <p className="text-muted-foreground mb-6">
             An unexpected error occurred. Please try again.
           </p>
           <button
             onClick={reset}
-            className="rounded-lg bg-white px-6 py-3 font-medium text-gray-900 transition-colors hover:bg-gray-100"
+            className="bg-primary text-primary-foreground rounded-lg px-6 py-3 font-medium transition-colors hover:opacity-90"
           >
             Try Again
           </button>

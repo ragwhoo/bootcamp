@@ -92,14 +92,14 @@ function SearchContent() {
 
   return (
     <div className="mx-auto max-w-4xl px-4 py-16 sm:px-6 lg:px-8">
-      <nav className="mb-4 text-sm text-gray-500">
-        <Link href="/" className="hover:text-white">L&D Bootcamp</Link>
-        <span className="mx-2 text-gray-600">/</span>
-        <span className="font-medium text-white">Search</span>
+      <nav className="text-muted-foreground mb-4 text-sm">
+        <Link href="/" className="hover:text-foreground">L&D Bootcamp</Link>
+        <span className="text-muted-foreground/50 mx-2">/</span>
+        <span className="text-foreground font-medium">Search</span>
       </nav>
 
-      <h1 className="text-3xl font-bold text-white">Search</h1>
-      <p className="mt-2 text-gray-400">Find topics across the learning path.</p>
+      <h1 className="text-foreground text-3xl font-bold">Search</h1>
+      <p className="text-muted-foreground mt-2">Find topics across the learning path.</p>
 
       <form onSubmit={handleSearch} className="my-8">
         <div className="flex flex-col gap-3 sm:flex-row">
@@ -108,11 +108,11 @@ function SearchContent() {
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Search for DNS, DHCP, RAID, IIS, etc..."
-            className="flex-1 rounded-lg border border-white/20 bg-white/10 px-4 py-3 text-base text-white placeholder-gray-500 focus:border-white focus:outline-none"
+            className="text-foreground placeholder-muted-foreground border-border bg-muted flex-1 rounded-lg border px-4 py-3 text-base focus:border-primary focus:outline-none"
           />
           <button
             type="submit"
-            className="rounded-lg bg-white px-6 py-3 text-sm font-medium text-gray-900 transition-colors hover:bg-gray-200"
+            className="bg-primary text-primary-foreground rounded-lg px-6 py-3 text-sm font-medium transition-colors hover:opacity-90"
           >
             Search
           </button>
@@ -122,28 +122,28 @@ function SearchContent() {
       {searched && (
         <div>
           {results.length === 0 ? (
-            <p className="text-gray-500">No results found. Try a different search term.</p>
+            <p className="text-muted-foreground">No results found. Try a different search term.</p>
           ) : (
             <div>
-              <p className="mb-4 text-sm text-gray-500">{results.length} result{results.length !== 1 ? "s" : ""} found</p>
+              <p className="text-muted-foreground mb-4 text-sm">{results.length} result{results.length !== 1 ? "s" : ""} found</p>
               <div className="space-y-4">
                 {results.map((result) => (
                   <Link
                     key={result.topicId}
                     href={`/learning-outcome/${result.outcomeId}/${result.topicId}`}
-                    className="block rounded-lg border border-white/10 bg-white/5 p-4 transition-colors hover:bg-white/10 hover:shadow-lg hover:shadow-white/5"
+                    className="border-border bg-card/50 hover:bg-card block rounded-lg border p-4 transition-colors hover:shadow-lg"
                   >
                     <div className="flex items-start justify-between">
                       <div>
-                        <h3 className="font-semibold text-white">{result.topicTitle}</h3>
-                        <p className="text-sm text-gray-400">
+                        <h3 className="text-foreground font-semibold">{result.topicTitle}</h3>
+                        <p className="text-muted-foreground text-sm">
                           {result.sectionNumber} {result.sectionTitle}
                         </p>
-                        <p className="text-sm text-gray-500">{result.outcomeTitle}</p>
+                        <p className="text-muted-foreground/70 text-sm">{result.outcomeTitle}</p>
                       </div>
-                      <span className="ml-4 flex-shrink-0 text-xs text-gray-500">{result.sectionNumber}</span>
+                      <span className="text-muted-foreground/70 ml-4 flex-shrink-0 text-xs">{result.sectionNumber}</span>
                     </div>
-                    <p className="mt-2 line-clamp-3 text-sm text-gray-400">{result.excerpt}</p>
+                    <p className="text-muted-foreground mt-2 line-clamp-3 text-sm">{result.excerpt}</p>
                   </Link>
                 ))}
               </div>
@@ -154,13 +154,13 @@ function SearchContent() {
 
       {!searched && (
         <div className="mt-8">
-          <p className="mb-4 text-sm text-gray-500">Popular topics:</p>
+          <p className="text-muted-foreground mb-4 text-sm">Popular topics:</p>
           <div className="flex flex-wrap gap-2">
             {["DNS", "DHCP", "Kerberos", "RAID", "IIS", "GPO", "AD DS", "Hypervisor", "NVMe", "FTP", "CNAME"].map((term) => (
               <button
                 key={term}
                 onClick={() => { setQuery(term); handleSearch({} as React.FormEvent); }}
-                className="rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm text-gray-400 transition-colors hover:border-white/30 hover:text-white"
+                className="border-border bg-muted/50 text-muted-foreground hover:border-border hover:text-foreground rounded-full border px-4 py-2 text-sm transition-colors"
               >
                 {term}
               </button>
@@ -174,7 +174,7 @@ function SearchContent() {
 
 export default function SearchPage() {
   return (
-    <Suspense fallback={<div className="mx-auto max-w-4xl px-4 py-16 text-center"><p className="text-gray-400">Loading...</p></div>}>
+    <Suspense fallback={<div className="mx-auto max-w-4xl px-4 py-16 text-center"><p className="text-muted-foreground">Loading...</p></div>}>
       <SearchContent />
     </Suspense>
   );

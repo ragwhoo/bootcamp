@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import { useState, useEffect } from 'react';
 import { authClient } from '@/lib/auth/client';
@@ -83,16 +83,16 @@ export default function ProfilePage() {
   if (loading) {
     return (
       <div className="flex min-h-[60vh] items-center justify-center">
-        <div className="h-8 w-8 animate-pulse rounded-full bg-white/10" />
+        <div className="bg-muted h-8 w-8 animate-pulse rounded-full" />
       </div>
     );
   }
 
   return (
     <div className="mx-auto max-w-2xl space-y-8 py-12">
-      <h1 className="text-3xl font-bold tracking-tight">Profile</h1>
+      <h1 className="text-foreground text-3xl font-bold tracking-tight">Profile</h1>
 
-      <Card className="bg-card/50 border-border/50 p-6">
+      <Card className="bg-card border-border p-6">
         <div className="flex items-center gap-4">
           <div className="bg-primary/10 flex h-16 w-16 items-center justify-center rounded-full">
             <User className="text-primary h-8 w-8" />
@@ -104,15 +104,15 @@ export default function ProfilePage() {
         </div>
       </Card>
 
-      <Card className="bg-card/50 border-border/50 p-6">
+      <Card className="bg-card border-border p-6">
         <div className="mb-6 flex items-center gap-2">
           <Lock className="text-primary h-5 w-5" />
-          <h2 className="text-xl font-semibold">Change Password</h2>
+          <h2 className="text-foreground text-xl font-semibold">Change Password</h2>
         </div>
 
         <form onSubmit={handleChangePassword} className="space-y-4">
           <div className="space-y-1">
-            <Label htmlFor="currentPassword" className="text-sm font-medium">
+            <Label htmlFor="currentPassword" className="text-foreground text-sm font-medium">
               Current Password
             </Label>
             <div className="relative">
@@ -136,7 +136,7 @@ export default function ProfilePage() {
           </div>
 
           <div className="space-y-1">
-            <Label htmlFor="newPassword" className="text-sm font-medium">
+            <Label htmlFor="newPassword" className="text-foreground text-sm font-medium">
               New Password
             </Label>
             <div className="relative">
@@ -163,7 +163,7 @@ export default function ProfilePage() {
           </div>
 
           <div className="space-y-1">
-            <Label htmlFor="confirmPassword" className="text-sm font-medium">
+            <Label htmlFor="confirmPassword" className="text-foreground text-sm font-medium">
               Confirm New Password
             </Label>
             <Input
@@ -178,14 +178,14 @@ export default function ProfilePage() {
           </div>
 
           {error && (
-            <div className="flex items-center gap-2 rounded-lg bg-destructive/10 px-4 py-3 text-sm text-destructive">
+            <div className="bg-destructive/10 text-destructive flex items-center gap-2 rounded-lg px-4 py-3 text-sm">
               <AlertCircle className="h-4 w-4 shrink-0" />
               {error}
             </div>
           )}
 
           {success && (
-            <div className="flex items-center gap-2 rounded-lg bg-green-500/10 px-4 py-3 text-sm text-green-500">
+            <div className="flex items-center gap-2 rounded-lg bg-green-500/10 px-4 py-3 text-sm text-green-600 dark:text-green-400">
               <CheckCircle className="h-4 w-4 shrink-0" />
               {success}
             </div>

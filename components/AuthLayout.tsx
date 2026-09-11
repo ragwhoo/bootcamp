@@ -15,7 +15,7 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
               className="absolute inset-0 h-full w-full object-cover"
               loading="eager"
             />
-            <div className="absolute inset-0 bg-black/30" />
+            <div className="absolute inset-0 bg-black/30 dark:bg-black/30 bg-black/10" />
           </>
         </div>
 
@@ -23,8 +23,8 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
           <div className="w-full max-w-md space-y-8">
             <div className="space-y-1">
               <div className="flex items-center gap-2 mb-4">
-                <BookOpen className="h-8 w-8 text-primary" />
-                <span className="text-2xl font-bold tracking-tight">L&D Bootcamp</span>
+                <BookOpen className="text-primary h-8 w-8" />
+                <span className="text-foreground text-2xl font-bold tracking-tight">L&D Bootcamp</span>
               </div>
               {children}
             </div>

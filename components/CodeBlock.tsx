@@ -12,17 +12,17 @@ export function CodeBlock({ code, language = "bash" }: { code: string; language?
   };
 
   return (
-    <div className="relative my-4 rounded-lg border border-white/10 bg-gray-900 p-4">
+    <div className="border-border bg-card relative my-4 rounded-lg border p-4">
       <div className="mb-2 flex items-center justify-between">
-        <span className="text-xs text-gray-400">{language}</span>
+        <span className="text-muted-foreground text-xs">{language}</span>
         <button
           onClick={handleCopy}
-          className="rounded px-2 py-1 text-xs text-gray-400 transition-colors hover:text-white"
+          className="text-muted-foreground hover:text-foreground rounded px-2 py-1 text-xs transition-colors"
         >
           {copied ? "Copied!" : "Copy"}
         </button>
       </div>
-      <pre className="overflow-x-auto text-sm text-white">
+      <pre className="text-foreground overflow-x-auto text-sm">
         <code>{code}</code>
       </pre>
     </div>

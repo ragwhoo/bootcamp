@@ -2,21 +2,21 @@ import Link from "next/link";
 
 export function LearningOutcomeCard({ number, title, description, count, href }: { number: string; title: string; description: string; count: string; href: string }) {
   return (
-    <Link href={href} className="group block rounded-xl border border-white/10 bg-white/5 p-6 backdrop-blur-sm transition-all hover:bg-white/10 hover:shadow-lg hover:shadow-white/5">
+    <Link href={href} className="border-border bg-card/50 hover:bg-card group block rounded-xl border p-6 backdrop-blur-sm transition-all hover:shadow-lg">
       <div className="mb-4 flex items-start justify-between">
-        <span className="rounded-lg border border-white/10 bg-white/10 px-3 py-1 text-sm font-bold text-white">
+        <span className="border-border bg-muted text-foreground rounded-lg border px-3 py-1 text-sm font-bold">
           {number}
         </span>
-        <svg className="h-5 w-5 text-gray-500 transition-transform group-hover:translate-x-1 group-hover:text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <svg className="text-muted-foreground h-5 w-5 transition-transform group-hover:translate-x-1 group-hover:text-foreground" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
         </svg>
       </div>
-      <h2 className="mb-2 text-xl font-bold text-white">{title}</h2>
-      <p className="mb-4 text-sm text-gray-400">{description}</p>
-      <div className="flex items-center gap-2 text-xs text-gray-500">
+      <h2 className="text-foreground mb-2 text-xl font-bold">{title}</h2>
+      <p className="text-muted-foreground mb-4 text-sm">{description}</p>
+      <div className="text-muted-foreground flex items-center gap-2 text-xs">
         <span>{count} topics</span>
         <span>·</span>
-        <span className="text-gray-400 group-hover:text-white transition-colors">Explore →</span>
+        <span className="group-hover:text-foreground transition-colors">Explore →</span>
       </div>
     </Link>
   );

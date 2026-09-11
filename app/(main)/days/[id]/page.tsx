@@ -19,8 +19,8 @@ export default async function DayPage({ params }: { params: Promise<{ id: string
   if (!day) {
     return (
       <div className="mx-auto max-w-4xl px-4 py-16 text-center">
-        <h1 className="text-2xl font-bold text-white">Day not found</h1>
-        <Link href="/" className="mt-4 inline-block text-blue-400 underline hover:text-blue-300">← Back to Home</Link>
+        <h1 className="text-foreground text-2xl font-bold">Day not found</h1>
+        <Link href="/" className="text-primary mt-4 inline-block underline hover:opacity-80">← Back to Home</Link>
       </div>
     );
   }
@@ -31,37 +31,37 @@ export default async function DayPage({ params }: { params: Promise<{ id: string
 
   return (
     <div className="mx-auto max-w-4xl px-4 py-8 sm:px-6 lg:px-8">
-      <nav className="mb-4 text-sm text-gray-500">
-        <Link href="/" className="hover:text-white">L&D Bootcamp</Link>
-        <span className="mx-2 text-gray-600">/</span>
-        <span className="font-medium text-white">Bootcamp by Day</span>
-        <span className="mx-2 text-gray-600">/</span>
-        <span className="font-medium text-white">Day {day.number}</span>
+      <nav className="text-muted-foreground mb-4 text-sm">
+        <Link href="/" className="hover:text-foreground">L&D Bootcamp</Link>
+        <span className="text-muted-foreground/50 mx-2">/</span>
+        <span className="text-foreground font-medium">Bootcamp by Day</span>
+        <span className="text-muted-foreground/50 mx-2">/</span>
+        <span className="text-foreground font-medium">Day {day.number}</span>
       </nav>
 
       <div className="mb-10">
-        <span className="mb-3 inline-block rounded-full border border-white/10 bg-white/10 px-3 py-1 text-xs font-bold uppercase tracking-wider text-gray-300">
+        <span className="border-border bg-muted text-muted-foreground mb-3 inline-block rounded-full border px-3 py-1 text-xs font-bold uppercase tracking-wider">
           Day {day.number}
         </span>
-        <h1 className="text-3xl font-bold text-white">{day.title}</h1>
-        <p className="mt-2 text-gray-400">{day.description}</p>
+        <h1 className="text-foreground text-3xl font-bold">{day.title}</h1>
+        <p className="text-muted-foreground mt-2">{day.description}</p>
       </div>
 
       <div className="mb-10">
-        <h2 className="mb-6 text-sm font-bold uppercase tracking-wider text-gray-500">Topics Covered</h2>
+        <h2 className="text-muted-foreground/70 mb-6 text-sm font-bold uppercase tracking-wider">Topics Covered</h2>
         <div className="space-y-4">
           {day.topics.map((topic, i) => {
             const num = String(i + 1).padStart(2, "0");
             const lo = topic.topicId ? getLearningOutcome(topic.topicId) : 1;
             const content = (
-              <div className="flex items-start gap-4 rounded-xl border border-white/10 bg-white/5 p-5 backdrop-blur-sm transition-colors hover:bg-white/10">
-                <span className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-lg bg-white/10 text-sm font-bold text-white">
+              <div className="border-border bg-card/50 hover:bg-card flex items-start gap-4 rounded-xl border p-5 backdrop-blur-sm transition-colors">
+                <span className="bg-muted text-foreground flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-lg text-sm font-bold">
                   {num}
                 </span>
                 <div>
-                  <h3 className="text-lg font-semibold text-white">{topic.title}</h3>
+                  <h3 className="text-foreground text-lg font-semibold">{topic.title}</h3>
                   {topic.description && (
-                    <p className="mt-1 text-sm text-gray-400">{topic.description}</p>
+                    <p className="text-muted-foreground mt-1 text-sm">{topic.description}</p>
                   )}
                 </div>
               </div>
@@ -83,17 +83,17 @@ export default async function DayPage({ params }: { params: Promise<{ id: string
         </div>
       </div>
 
-      <div className="border-t border-white/10 pt-6">
+      <div className="border-border border-t pt-6">
         <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           {previousDay ? (
-            <Link href={`/days/${previousDay.id}`} className="flex items-center gap-2 text-sm font-medium text-gray-500 transition-colors hover:text-white">
+            <Link href={`/days/${previousDay.id}`} className="text-muted-foreground hover:text-foreground flex items-center gap-2 text-sm font-medium transition-colors">
               <span>← Day {previousDay.number}</span>
-              <span className="truncate text-gray-600">{previousDay.title}</span>
+              <span className="text-muted-foreground/50 truncate">{previousDay.title}</span>
             </Link>
           ) : <div />}
           {nextDay ? (
-            <Link href={`/days/${nextDay.id}`} className="flex items-center gap-2 text-sm font-medium text-gray-500 transition-colors hover:text-white sm:ml-auto">
-              <span className="truncate text-gray-600">Day {nextDay.number} {nextDay.title}</span>
+            <Link href={`/days/${nextDay.id}`} className="text-muted-foreground hover:text-foreground flex items-center gap-2 text-sm font-medium transition-colors sm:ml-auto">
+              <span className="text-muted-foreground/50 truncate">Day {nextDay.number} {nextDay.title}</span>
               <span>Next Day →</span>
             </Link>
           ) : <div />}

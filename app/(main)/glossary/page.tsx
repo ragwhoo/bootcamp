@@ -33,15 +33,15 @@ export default function GlossaryPage() {
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
-      <nav className="mb-4 text-sm text-gray-500">
-        <Link href="/" className="hover:text-white">L&D Bootcamp</Link>
-        <span className="mx-2 text-gray-600">/</span>
-        <span className="font-medium text-white">Glossary</span>
+      <nav className="text-muted-foreground mb-4 text-sm">
+        <Link href="/" className="hover:text-foreground">L&D Bootcamp</Link>
+        <span className="text-muted-foreground/50 mx-2">/</span>
+        <span className="text-foreground font-medium">Glossary</span>
       </nav>
 
       <div className="mb-8">
-        <h1 className="text-3xl font-bold text-white">Glossary</h1>
-        <p className="mt-2 text-gray-400">Technical terminology used across the bootcamp. {totalTerms} terms.</p>
+        <h1 className="text-foreground text-3xl font-bold">Glossary</h1>
+        <p className="text-muted-foreground mt-2">Technical terminology used across the bootcamp. {totalTerms} terms.</p>
       </div>
 
       <div className="mb-6">
@@ -50,7 +50,7 @@ export default function GlossaryPage() {
           placeholder="Search terms..."
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          className="w-full rounded-lg border border-white/10 bg-white/5 px-4 py-3 text-white placeholder-gray-500 backdrop-blur-sm focus:border-white/20 focus:outline-none"
+          className="text-foreground placeholder-muted-foreground border-border bg-muted w-full rounded-lg border px-4 py-3 backdrop-blur-sm focus:border-primary focus:outline-none"
         />
       </div>
 
@@ -58,7 +58,7 @@ export default function GlossaryPage() {
         <button
           onClick={() => setActiveCategory(null)}
           className={`rounded-lg px-4 py-2 text-sm transition-colors ${
-            activeCategory === null ? "bg-white/10 text-white" : "text-gray-400 hover:bg-white/5"
+            activeCategory === null ? "bg-accent text-foreground" : "text-muted-foreground hover:bg-muted"
           }`}
         >
           All
@@ -68,7 +68,7 @@ export default function GlossaryPage() {
             key={cat.id}
             onClick={() => setActiveCategory(activeCategory === cat.id ? null : cat.id)}
             className={`flex items-center gap-2 rounded-lg px-4 py-2 text-sm transition-colors ${
-              activeCategory === cat.id ? "bg-white/10 text-white" : "text-gray-400 hover:bg-white/5"
+              activeCategory === cat.id ? "bg-accent text-foreground" : "text-muted-foreground hover:bg-muted"
             }`}
           >
             <IconByName name={cat.icon} className="h-4 w-4" />
@@ -79,8 +79,8 @@ export default function GlossaryPage() {
 
       <div className="space-y-8">
         {filteredCategories.map((cat) => (
-          <div key={cat.id} className="rounded-xl border border-white/10 bg-white/5 p-6 backdrop-blur-sm">
-            <h2 className="mb-4 flex items-center gap-2 text-xl font-bold text-white">
+          <div key={cat.id} className="border-border bg-card/50 rounded-xl border p-6 backdrop-blur-sm">
+            <h2 className="text-foreground mb-4 flex items-center gap-2 text-xl font-bold">
               <IconByName name={cat.icon} className="h-5 w-5" />
               {cat.title}
             </h2>
@@ -88,15 +88,15 @@ export default function GlossaryPage() {
               {cat.entries.map((entry) => (
                 <div
                   key={entry.term}
-                  className="rounded-lg border border-white/5 bg-white/5 p-4"
+                  className="border-border bg-muted/30 rounded-lg border p-4"
                 >
                   <div className="mb-1 flex items-baseline gap-2">
-                    <span className="font-semibold text-white">{entry.term}</span>
+                    <span className="text-foreground font-semibold">{entry.term}</span>
                     {entry.fullForm && (
-                      <span className="text-xs text-gray-500">({entry.fullForm})</span>
+                      <span className="text-muted-foreground/70 text-xs">({entry.fullForm})</span>
                     )}
                   </div>
-                  <p className="text-sm text-gray-400">{entry.definition}</p>
+                  <p className="text-muted-foreground text-sm">{entry.definition}</p>
                 </div>
               ))}
             </div>
@@ -105,8 +105,8 @@ export default function GlossaryPage() {
       </div>
 
       {filteredCategories.length === 0 && (
-        <div className="rounded-xl border border-white/10 bg-white/5 p-8 text-center backdrop-blur-sm">
-          <p className="text-gray-400">No terms found matching &quot;{search}&quot;</p>
+        <div className="border-border bg-card/50 rounded-xl border p-8 text-center backdrop-blur-sm">
+          <p className="text-muted-foreground">No terms found matching &quot;{search}&quot;</p>
         </div>
       )}
     </div>

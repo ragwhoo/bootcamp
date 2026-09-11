@@ -29,26 +29,26 @@ export function AuthStatus() {
 
   if (loading) {
     return (
-      <div className="h-8 w-8 animate-pulse rounded-full bg-white/10" />
+      <div className="bg-muted h-8 w-8 animate-pulse rounded-full" />
     );
   }
 
   if (user) {
     return (
       <div className="flex items-center gap-2">
-        <span className="hidden text-sm text-gray-400 sm:inline">
+        <span className="text-muted-foreground hidden text-sm sm:inline">
           {user.name || user.email}
         </span>
         <Link
           href="/profile"
-          className="flex items-center gap-1.5 rounded-lg border border-white/20 px-3 py-1.5 text-sm text-gray-400 transition-colors hover:bg-white/10 hover:text-white"
+          className="text-muted-foreground border-border hover:bg-muted hover:text-foreground flex items-center gap-1.5 rounded-lg border px-3 py-1.5 text-sm transition-colors"
         >
           <User className="h-4 w-4" />
           <span className="hidden sm:inline">Profile</span>
         </Link>
         <button
           onClick={handleSignOut}
-          className="flex items-center gap-1.5 rounded-lg border border-white/20 px-3 py-1.5 text-sm text-gray-400 transition-colors hover:bg-white/10 hover:text-white"
+          className="text-muted-foreground border-border hover:bg-muted hover:text-foreground flex items-center gap-1.5 rounded-lg border px-3 py-1.5 text-sm transition-colors"
         >
           <LogOut className="h-4 w-4" />
           <span className="hidden sm:inline">Sign Out</span>
@@ -60,7 +60,7 @@ export function AuthStatus() {
   return (
     <Link
       href="/auth/sign-in"
-      className="flex items-center gap-1.5 rounded-lg border border-white/20 px-3 py-1.5 text-sm text-gray-400 transition-colors hover:bg-white/10 hover:text-white"
+      className="text-muted-foreground border-border hover:bg-muted hover:text-foreground flex items-center gap-1.5 rounded-lg border px-3 py-1.5 text-sm transition-colors"
     >
       <LogIn className="h-4 w-4" />
       <span className="hidden sm:inline">Sign In</span>
