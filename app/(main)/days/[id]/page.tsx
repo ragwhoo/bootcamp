@@ -1,6 +1,5 @@
 import { days } from "@/content/days";
 import Link from "next/link";
-import { DayNotes } from "@/components/DayNotes";
 
 function getLearningOutcome(topicId: string): number {
   const prefix = topicId.split("-")[0];
@@ -83,8 +82,6 @@ export default async function DayPage({ params }: { params: Promise<{ id: string
           })}
         </div>
       </div>
-
-      <DayNotes dayId={day.id} />
 
       <div className="border-border border-t pt-6">
         <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
