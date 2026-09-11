@@ -14,6 +14,7 @@ export default function Sitemap() {
     { url: `${baseUrl}/search`, lastModified: new Date() },
     { url: `${baseUrl}/days/1`, lastModified: new Date() },
     { url: `${baseUrl}/days/2`, lastModified: new Date() },
+    { url: `${baseUrl}/days/3`, lastModified: new Date() },
   ];
 
   const outcomePages = outcomes.map((o) => ({
