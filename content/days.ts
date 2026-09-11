@@ -134,17 +134,17 @@ export const days = [
       {
         title: "RAID + Disk/Partition Management",
         description: "Understand RAID, disk types, partitions, volumes, and disk management.",
-        topicId: "1-7-1",
+        topicId: "1-8-1",
       },
       {
         title: "Storage Spaces",
         description: "Learn how Windows Storage Spaces pools physical disks and provides resilient virtual storage.",
-        topicId: "1-7-2",
+        topicId: "1-8-2",
       },
       {
         title: "Permissions",
         description: "Understand NTFS permissions, share permissions, ACLs, inheritance, and effective access.",
-        topicId: "1-7-3",
+        topicId: "1-8-3",
       },
     ],
   },
