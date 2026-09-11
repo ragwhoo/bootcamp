@@ -125,4 +125,27 @@ export const days = [
       },
     ],
   },
+  {
+    id: 3,
+    number: "03",
+    title: "File Systems, RAID, Storage & Permissions",
+    description: "Learn how Windows Server manages disks, partitions, file systems, RAID, Storage Spaces, and access permissions.",
+    topics: [
+      {
+        title: "RAID + Disk/Partition Management",
+        description: "Understand RAID, disk types, partitions, volumes, and disk management.",
+        topicId: "1-7-1",
+      },
+      {
+        title: "Storage Spaces",
+        description: "Learn how Windows Storage Spaces pools physical disks and provides resilient virtual storage.",
+        topicId: "1-7-2",
+      },
+      {
+        title: "Permissions",
+        description: "Understand NTFS permissions, share permissions, ACLs, inheritance, and effective access.",
+        topicId: "1-7-3",
+      },
+    ],
+  },
 ];

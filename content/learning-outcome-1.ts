@@ -923,5 +923,210 @@ export const learningOutcome1 = {
         },
       ],
     },
+    {
+      id: "1-7",
+      number: "1.7",
+      title: "File Systems, RAID, Storage & Permissions",
+      description: "Understanding how Windows Server manages disks, partitions, file systems, RAID, Storage Spaces, and access permissions.",
+      topics: [
+        {
+          id: "1-7-1",
+          number: "1.7.1",
+          title: "RAID + Disk/Partition Management",
+          content: {
+            intro: "Understand how Windows Server manages disks, partitions, volumes, file systems, and RAID configurations.",
+            definitions: [
+              { term: "File System", definition: "A system used to organize, store, and manage data on a storage device." },
+              { term: "FAT", definition: "File Allocation Table, a file system used to organize files on storage media." },
+              { term: "NTFS", definition: "New Technology File System, the Windows file system that provides features such as permissions, security, compression, encryption, and auditing." },
+              { term: "ReFS", definition: "Resilient File System, a Microsoft file system designed with data integrity and resilience in mind." },
+              { term: "Partition", definition: "A logically defined portion of a physical disk." },
+              { term: "Volume", definition: "A logical storage unit that can be formatted with a file system and used to store data." },
+              { term: "RAID", definition: "Redundant Array of Independent Disks, a method of combining multiple physical disks to provide performance, redundancy, or fault tolerance." },
+              { term: "ACL", definition: "Access Control List, a list of permissions controlling access to a resource." },
+            ],
+            subsections: [
+              {
+                title: "FAT",
+                content: [
+                  "FAT stands for File Allocation Table.",
+                  "It is a basic file system.",
+                  "It has limitations compared with NTFS, particularly regarding security and permissions.",
+                ],
+              },
+              {
+                title: "NTFS",
+                content: [
+                  "NTFS stands for New Technology File System.",
+                  "It supports file and folder permissions.",
+                  "It supports ACLs.",
+                  "It supports encryption, auditing, compression, shrinking, and extending volumes.",
+                ],
+              },
+              {
+                title: "ReFS",
+                content: [
+                  "ReFS stands for Resilient File System.",
+                  "It focuses on resilience and data integrity.",
+                  "It supports large files and directories.",
+                  "It supports large volumes.",
+                  "The notes distinguish ReFS from NTFS regarding volume shrinking.",
+                ],
+              },
+              {
+                title: "Basic Disk",
+                content: "A basic disk uses traditional partitions and volumes for organizing storage.",
+              },
+              {
+                title: "Dynamic Disk",
+                content: "A dynamic disk supports more advanced volume configurations and can combine storage across disks.",
+              },
+              {
+                title: "Shrinking a Volume",
+                content: [
+                  "Shrinking reduces the size of an existing volume.",
+                  "The space released becomes unallocated space.",
+                  "The unallocated space can potentially be used for another volume.",
+                ],
+              },
+              {
+                title: "Extending a Volume",
+                content: [
+                  "Extending increases the size of an existing volume.",
+                  "Available unallocated space can be added to the volume.",
+                ],
+              },
+              {
+                title: "Hardware RAID",
+                content: "Hardware RAID is managed by a dedicated RAID controller.",
+              },
+              {
+                title: "Software RAID",
+                content: "Software RAID is managed through the operating system or software.",
+              },
+              {
+                title: "RAID 0 — Striping",
+                content: [
+                  "Data is distributed across multiple disks.",
+                  "It can improve performance.",
+                  "It provides no redundancy.",
+                  "Failure of one disk can make the array unavailable.",
+                ],
+              },
+              {
+                title: "RAID 1 — Mirroring",
+                content: [
+                  "Data is duplicated across disks.",
+                  "It provides redundancy.",
+                  "If one disk fails, the mirrored disk can continue providing the data.",
+                ],
+              },
+            ],
+          },
+        },
+        {
+          id: "1-7-2",
+          number: "1.7.2",
+          title: "Storage Spaces",
+          content: {
+            intro: "Understand Windows Storage Spaces and how physical disks can be combined into storage pools and virtual disks.",
+            definitions: [
+              { term: "Storage Spaces", definition: "A Windows storage technology that allows physical disks to be grouped into storage pools and used to create virtual disks." },
+              { term: "Storage Pool", definition: "A collection of physical disks grouped together and managed as a storage resource." },
+              { term: "Virtual Disk", definition: "A logical disk created from a storage pool." },
+              { term: "Resiliency", definition: "The ability of a storage configuration to continue operating despite certain disk failures." },
+            ],
+            subsections: [
+              {
+                title: "Storage Spaces Architecture",
+                content: [
+                  "Physical disks are added to a storage pool.",
+                  "The storage pool provides storage capacity from the physical disks.",
+                  "Virtual disks can then be created from the pool.",
+                  "The virtual disk can be formatted and used like a normal disk.",
+                ],
+              },
+              {
+                title: "Storage Pool",
+                content: "A storage pool combines physical disks into a single manageable storage resource.",
+              },
+              {
+                title: "Virtual Disk",
+                content: "A virtual disk is created from the available capacity in a storage pool.",
+              },
+              {
+                title: "Resiliency",
+                content: "Storage Spaces can use different resiliency configurations to provide protection against disk failures.",
+              },
+              {
+                title: "Storage Tiers",
+                content: "Storage tiers can use different types of physical storage to optimize how data is stored.",
+              },
+            ],
+          },
+        },
+        {
+          id: "1-7-3",
+          number: "1.7.3",
+          title: "Permissions",
+          content: {
+            intro: "Understand how Windows controls access to files and folders using NTFS permissions, share permissions, ACLs, and inheritance.",
+            definitions: [
+              { term: "Permission", definition: "A rule determining what a user or group is allowed or denied to do with a resource." },
+              { term: "ACL", definition: "Access Control List containing access rules for a resource." },
+              { term: "NTFS Permission", definition: "A permission applied to files and folders on an NTFS volume." },
+              { term: "Share Permission", definition: "A permission controlling access to a resource shared over the network." },
+              { term: "Inheritance", definition: "The process by which permissions are passed from a parent folder to child objects." },
+              { term: "Effective Permission", definition: "The actual access a user receives after applicable permissions are evaluated." },
+            ],
+            subsections: [
+              {
+                title: "Common NTFS Permissions",
+                content: ["Read", "Write", "Modify", "Full Control"],
+              },
+              {
+                title: "Read",
+                content: "Allows a user to view files and folders and read their contents.",
+              },
+              {
+                title: "Write",
+                content: "Allows a user to write or create data where permitted.",
+              },
+              {
+                title: "Modify",
+                content: "Provides broader access, including modifying existing files.",
+              },
+              {
+                title: "Full Control",
+                content: "Provides full access to the resource, including the ability to modify permissions where applicable.",
+              },
+              {
+                title: "Allow and Deny",
+                content: [
+                  "Permissions can be explicitly allowed or denied.",
+                  "Deny permissions can override corresponding allowed permissions in many access-evaluation scenarios.",
+                ],
+              },
+              {
+                title: "Permission Inheritance",
+                content: "Permissions can be inherited from a parent folder by child files and folders.",
+              },
+              {
+                title: "NTFS Permissions vs Share Permissions",
+                content: [
+                  "NTFS permissions apply to files and folders on an NTFS volume.",
+                  "Share permissions apply when the resource is accessed through a network share.",
+                  "When accessing a shared folder over the network, both NTFS and share permissions can affect the user's effective access.",
+                ],
+              },
+              {
+                title: "Effective Permissions",
+                content: "Effective permissions represent the resulting access available to a user after the applicable permissions are evaluated.",
+              },
+            ],
+          },
+        },
+      ],
+    },
   ],
 } as const;
