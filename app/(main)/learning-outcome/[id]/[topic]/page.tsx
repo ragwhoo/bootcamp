@@ -253,8 +253,8 @@ export default async function TopicPage({ params }: { params: Promise<{ id: stri
   }
 
   return (
-    <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
-      <nav className="text-muted-foreground mb-4 text-sm">
+    <div className="mx-auto flex max-w-7xl flex-col" style={{ height: "calc(100vh - 52px)" }}>
+      <nav className="text-muted-foreground shrink-0 px-4 py-4 text-sm sm:px-6 lg:px-8">
         <Link href="/" className="hover:text-foreground">L&D Bootcamp</Link>
         <span className="text-muted-foreground/50 mx-2">/</span>
         <Link href={`/learning-outcome/${outcome.id}`} className="hover:text-foreground">{outcome.title}</Link>
@@ -262,9 +262,9 @@ export default async function TopicPage({ params }: { params: Promise<{ id: stri
         <span className="text-foreground font-medium">{topic.title}</span>
       </nav>
 
-      <div className="flex gap-8">
-        <aside className="hidden w-64 flex-shrink-0 lg:block">
-          <nav className="sticky top-20 space-y-6 pb-8 pt-4">
+      <div className="flex min-h-0 flex-1 gap-8 px-4 sm:px-6 lg:px-8">
+        <aside className="hidden w-64 flex-shrink-0 overflow-y-auto lg:block">
+          <nav className="space-y-6 pb-8 pt-4">
             <h3 className="text-muted-foreground/70 text-xs font-bold uppercase tracking-wider">{outcome.title}</h3>
             <div className="space-y-4">
               {outcome.sections.map((sec: any) => (
@@ -293,7 +293,7 @@ export default async function TopicPage({ params }: { params: Promise<{ id: stri
           </nav>
         </aside>
 
-        <div className="flex-1 min-w-0">
+        <div className="min-w-0 flex-1 overflow-y-auto pb-8 pt-4">
           <span className="text-muted-foreground/70 mb-2 text-sm font-bold">{section.number}</span>
           <h1 className="text-foreground text-3xl font-bold">{topic.title}</h1>
           <div className="text-muted-foreground mt-6 space-y-4">
