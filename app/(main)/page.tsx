@@ -1,6 +1,5 @@
 import { DayCard } from "@/components/DayCard";
 import Hero from "@/components/Hero";
-import { HomeNotes } from "@/components/HomeNotes";
 import { days } from "@/content/days";
 import { BookOpen, Plug } from "lucide-react";
 import Link from "next/link";
@@ -53,12 +52,6 @@ export default async function Home() {
               />
             ))}
           </div>
-        </div>
-      </section>
-
-      <section id="notes">
-        <div className="mx-auto max-w-[1600px] px-5 pt-10 pb-24 sm:px-8">
-          <HomeNotes />
         </div>
       </section>
 
