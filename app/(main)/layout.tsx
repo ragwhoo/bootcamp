@@ -6,7 +6,7 @@ export default function MainLayout({ children }: { children: React.ReactNode }) 
     <SmoothScroll>
       <div id="bg-gradient" />
       <Header />
-      <main className="flex-1">{children}</main>
+      <main className="flex flex-1 flex-col">{children}</main>
     </SmoothScroll>
   );
 }
