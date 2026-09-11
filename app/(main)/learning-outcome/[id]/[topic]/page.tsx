@@ -253,8 +253,8 @@ export default async function TopicPage({ params }: { params: Promise<{ id: stri
   }
 
   return (
-    <div className="mx-auto flex max-w-7xl flex-col" style={{ height: "calc(100vh - 52px)" }}>
-      <nav className="text-muted-foreground shrink-0 px-4 py-4 text-sm sm:px-6 lg:px-8">
+    <div className="mx-auto flex h-[calc(100vh-52px)] max-w-7xl flex-col overflow-hidden">
+      <nav className="text-muted-foreground shrink-0 border-b border-border px-4 py-3 text-sm sm:px-6 lg:px-8">
         <Link href="/" className="hover:text-foreground">L&D Bootcamp</Link>
         <span className="text-muted-foreground/50 mx-2">/</span>
         <Link href={`/learning-outcome/${outcome.id}`} className="hover:text-foreground">{outcome.title}</Link>

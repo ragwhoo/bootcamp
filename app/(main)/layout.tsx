@@ -6,7 +6,7 @@ export default function MainLayout({ children }: { children: React.ReactNode }) 
     <SmoothScroll>
       <div id="bg-gradient" />
       <Header />
-      <main className="h-[calc(100vh-52px)] overflow-hidden">{children}</main>
+      <main>{children}</main>
     </SmoothScroll>
   );
 }
