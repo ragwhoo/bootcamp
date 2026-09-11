@@ -1021,6 +1021,35 @@ export const learningOutcome1 = {
                   "If one disk fails, the mirrored disk can continue providing the data.",
                 ],
               },
+              {
+                title: "RAID 5 — Striping with Parity",
+                content: [
+                  "Data and parity information are striped across three or more disks.",
+                  "It provides both performance improvement and redundancy.",
+                  "If one disk fails, the data can be rebuilt from the parity information.",
+                  "Requires a minimum of 3 disks.",
+                  "Write performance is reduced due to parity calculations.",
+                ],
+              },
+              {
+                title: "RAID 6 — Striping with Double Parity",
+                content: [
+                  "Data and two sets of parity information are striped across four or more disks.",
+                  "It can tolerate up to two simultaneous disk failures.",
+                  "Requires a minimum of 4 disks.",
+                  "More fault-tolerant than RAID 5 but with additional write overhead.",
+                ],
+              },
+              {
+                title: "RAID 10 — Mirroring + Striping",
+                content: [
+                  "Combines RAID 1 (mirroring) and RAID 0 (striping).",
+                  "Data is mirrored first, then striped across the mirrored pairs.",
+                  "Provides both high performance and redundancy.",
+                  "Requires a minimum of 4 disks.",
+                  "Offers better write performance than RAID 5 or RAID 6.",
+                ],
+              },
             ],
           },
         },
